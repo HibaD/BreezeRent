@@ -1,4 +1,4 @@
-const userList = []
+const userList = {}
 
 class User {
     constructor(id, pwd, email, name) {
@@ -26,8 +26,8 @@ class User {
     }
 }
 
-userList.push(new User("root", "csc309", "abc@a.com", "master"))
-userList[0].addRole("admin")
+userList["root"] = new User("root", "csc309", "abc@a.com", "master")
+userList["root"].addRole("admin")
 
 const registerForm = document.querySelector("#registerForm")
 
@@ -40,5 +40,17 @@ function addNewUser(e) {
     var email = registerForm.newEmail.value;
     var name = registerForm.legalName.value;
 
+    if (id in userList) {
+        if (email === userList[id].email) {
+            //Replace with pop up or some notification on webpage
+            console.log("existing profile, try remembering your password")
+        } else {
+            //Replace with pop up or some notification on webpage
+            console.log("existing username, choose different user ID")
+        }
+        return
+    }
+
+    userList[id] = new User(id, pwd, email, name)
 
 }
