@@ -1,0 +1,16 @@
+#profile-picture {
+  height: 200px;
+  width: 200px;
+}
+
+#profile-div {
+  width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#property-div {
+  margin-left: auto;
+  margin-right: auto;
+}
