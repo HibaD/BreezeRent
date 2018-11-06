@@ -30,8 +30,10 @@ userList["root"] = new User("root", "csc309", "abc@a.com", "master")
 userList["root"].addRole("admin")
 
 const registerForm = document.querySelector("#registerForm")
+const loginForm = document.querySelector("#login")
 
 registerForm.addEventListener('submit', addNewUser)
+loginForm.addEventListener('submit', logIn)
 
 function addNewUser(e) {
     var id = registerForm.newId.value;
@@ -53,4 +55,19 @@ function addNewUser(e) {
 
     userList[id] = new User(id, pwd, email, name)
 
+}
+
+function logIn(e) {
+    var userid = loginForm.userid.value;
+    var password = loginForm.pwd.value;
+
+    if (userid in userList) {
+        if (userList[userid].pwd === password) {
+            return //login
+        }
+        console.log("Wrong Password")
+        return //fail
+    }
+    console.log("user does not exist")
+    return //fail
 }
