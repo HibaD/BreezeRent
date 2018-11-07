@@ -13,7 +13,7 @@
 }
 
 #Notices {
-  width:500px;
+  width:45%;
   position: absolute;
   right: 50px;
   margin-bottom: 20px;
@@ -22,13 +22,13 @@
 #notices-submit {
   width:100px;
   margin-bottom: 10px;
-  margin-left:80%;
+  margin-left:79%;
 
   position: absolute;;
 }
 
 #user-div {
   display:inline-block;
-  width: 600px;
+  width: 45%;
   float:left;
 }
