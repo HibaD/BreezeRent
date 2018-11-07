@@ -6,7 +6,7 @@ class User {
         this.pwd = pwd;
         this.email = email;
         this.name = name;
-        this.role = []];
+        this.role = [];
     }
 
     changeName(newName) {
@@ -29,13 +29,21 @@ class User {
 userList["root"] = new User("root", "csc309", "abc@a.com", "master")
 userList["root"].addRole("admin")
 
-const registerForm = document.querySelector("#registerForm")
-const loginForm = document.querySelector("#login")
 
-registerForm.addEventListener('submit', addNewUser)
-loginForm.addEventListener('submit', logIn)
+const registerForm = document.querySelector("#registerForm")
+const loginForm = document.querySelector("#loginForm")
+console.log(registerForm)
+if (registerForm) {
+    registerForm.addEventListener('submit', addNewUser)
+}
+if (loginForm) {
+    loginForm.addEventListener('submit', logIn)
+}
+
 
 function addNewUser(e) {
+    e.preventDefault()
+
     var id = registerForm.newId.value;
     var pwd = registerForm.newPwd.value;
     var pwd2 = registerForm.repeatPwd.value;
@@ -53,16 +61,26 @@ function addNewUser(e) {
         return
     }
 
-    userList[id] = new User(id, pwd, email, name)
+    if (pwd !== pwd2) {
+        console.log("password not matching")
+        return // pwd not matching
+    }
 
+    userList[id] = new User(id, pwd, email, name)
+    console.log(userList[id])
+    window.open("index.html")
+    // window.location.href = "index.html"
 }
 
 function logIn(e) {
+    e.preventDefault()
+    
     var userid = loginForm.userid.value;
     var password = loginForm.pwd.value;
 
     if (userid in userList) {
         if (userList[userid].pwd === password) {
+            window.location.href = "main.html"
             return //login
         }
         console.log("Wrong Password")
