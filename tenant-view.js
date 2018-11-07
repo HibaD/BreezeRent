@@ -1,4 +1,3 @@
-const addPropertyButton = document.querySelector("#add-property-button");
 const updateProfileButton = document.querySelector("#update-profile-button");
 const saveProfileButton = document.querySelector("#save-profile-button");
 
@@ -7,12 +6,9 @@ const profileNameDiv = document.querySelector("#profile-name-div");
 const profileContact = document.querySelector("#profile-contact");
 const profileContactDiv = document.querySelector("#profile-contact-div");
 
-var nameInput, contactInput;
+const noticeList = document.querySelector("#notice-list");
 
-addPropertyButton.addEventListener("click", function(e) {
-  e.preventDefault();
-  window.location = "propertyregistry.html";
-});
+var nameInput, contactInput;
 
 updateProfileButton.addEventListener("click", function(e) {
   e.preventDefault();
@@ -52,4 +48,12 @@ saveProfileButton.addEventListener("click", function(e) {
 
   profileName.removeAttribute("style");
   profileContact.removeAttribute("style");
+});
+
+noticeList.addEventListener("click", function(e) {
+  e.preventDefault();
+  if (e.target.parentElement.classList.contains("close")) {
+    var notice = e.target.parentElement.parentElement;
+    notice.parentElement.removeChild(notice);
+  }
 });
