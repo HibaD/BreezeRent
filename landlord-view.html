@@ -78,11 +78,14 @@
           <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">
             Property 3
           </a>
+          <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="add-property" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">
+            Add new property
+          </a>
         </div>
       </div>
 
       <div class="col-7">
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content" id="property-info-div">
 
           <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
             <table class="table table-striped">
@@ -115,6 +118,11 @@
                 </tr>
               </tbody>
             </table>
+
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" id="property-detail-button">Property details</button>
+            </div>
+
           </div>
 
           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
@@ -150,6 +158,11 @@
                   </tr>
                 </tbody>
               </table>
+
+              <div class="text-center">
+                <button type="button" class="btn btn-primary" id="property-detail-button">Property details</button>
+              </div>
+
             </div>
 
           </div>
@@ -186,6 +199,11 @@
                   </tr>
                 </tbody>
               </table>
+
+              <div class="text-center">
+                <button type="button" class="btn btn-primary" id="property-detail-button">Property details</button>
+              </div>
+
             </div>
 
           </div>
@@ -195,14 +213,6 @@
 
   </div>
 
-  <div class="container-fluid">
-    <div class="row" id="add-property-div">
-      <div class="col-4"></div>
-      <div class="col-2">
-        <button type="button" class="btn btn-primary" id="add-property-button">Add new property</button>
-      </div>
-    </div>
-  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
