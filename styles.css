@@ -54,7 +54,7 @@ a {
   outline: none;
 }
 
-.newForm input, textarea {
+/* .newForm input, textarea {
   padding: 10px 10px;
   margin: 8px 0;
   border: 1px solid #ccc;
@@ -66,11 +66,9 @@ a {
   width: 50%;
   display: block;
 }
-
 .newForm .submit {
   width: auto;
-}
-
+} */
 .icon {
   border: 1px solid black;
   border-radius: 50%;
