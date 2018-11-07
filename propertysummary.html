@@ -21,6 +21,8 @@
 <body>
   <br><br>
 
+  <div class="container-fluid">
+
   <div>
     <div class="tab-content" id="panels">
 
@@ -34,50 +36,66 @@
 
     
     <form class="form-inline justify-content-center" id="tenants-form">
-        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Tenant</label>
-        <select class="custom-select my-1 mr-sm-2" id="tenants-select">
-          <option selected>Choose...</option>
-          <option value="Mary">Mary</option>
-          <option value="Allen">Allen</option>
-          <option value="Ray">Ray</option>
-        </select>
-           
-        <button type="submit" class="btn btn-primary my-1" id='tenants-submit'>Submit</button>
+        <div class="form-group row">
+          <label for="colFormLabel" class="col-sm-2 col-form-label">Tenant</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="tenants-input" placeholder="userID">
+          </div>
+        </div>           
+        <button type="submit" class="btn btn-primary my-1" id='tenants-submit' >Add</button>
       </form>
 
       <br><br>
 
-  <div class="card">
-      <div class="card-header">
-        Description
-      </div>
-      <div class="card-body">
-        <blockquote class="blockquote mb-0">
-          <p id="description_content">Some description and rental information</p>
-          <br><br> <br><br> <br><br> <br><br> <br><br>
-        </blockquote>
-      </div>
-  </div>
-  
-  
-  <div id="calendar">
-    <div id="calendar_header">
-        <i class="icon-chevron-left">&#8617;</i>          
-        <h1></h1>
-        <i class="icon-chevron-right">&#8618;</i>         
-    </div>
-    <div id="calendar_weekdays"></div>
-    <div id="calendar_content"></div>
-  </div>
-  
-  
-  <div id="claim_buttons">
-  <button type="button" class="btn btn-outline-primary">Claim Issue</button>
-  <button type="button" class="btn btn-outline-primary">Add Notice</button>
-  <button type="button" class="btn btn-outline-primary">Renew Lease</button>
-  </div>
-    
+  <div class="col-7" id="user-div">
+      <div class="tab-content" id="property-info-div">
 
+        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+          <table class="table table-striped" id="user-table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Bob</td>
+                <td>Brown</td>
+                <td>bbrown</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Colin</td>
+                <td>Core</td>
+                <td>ccore</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        
+      </div>
+    </div>
+
+  <div id="Notices" class="card">
+    <div class="card-header">
+      Notices
+    </div>
+    <div>
+    <textarea class="form-control" id="notices-text" rows="3"></textarea>
+    </div>
+    <div>    
+      <button type="submit" class="btn btn-primary my-1" id='notices-submit'>submit</button>
+    </div>
+  </div>
+
+</div>
+  
 
   <!-- Optional JavaScript -->
   <script type="text/javascript" src="propertysummary.js"></script>

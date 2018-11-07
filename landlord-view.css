@@ -1,16 +1,25 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 150%;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
 #profile-picture {
   height: 200px;
   width: 200px;
 }
 
 #profile-div {
-  width: 40%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  align-self: center;
 }
 
-#property-div {
-  margin-left: auto;
-  margin-right: auto;
+#update-profile-div button {
+  width: 130px;
+  height: 38px;
 }
