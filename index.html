@@ -7,19 +7,36 @@
   <link rel="stylesheet" href="index.css">
 </head>
 
-<body>
-  <div class="container" align="center">
-    <div>
-      <img class="logo" src="logo.png">
-    </div>
+<header>
+  <div class="logo">
+    BreezeRent
+  </div>
+  <div class="login">
     <form id="loginForm" align="center">
       <input id="userid" type="text" placeholder="User ID">
-      <br>
       <input id="pwd" type="text" placeholder = "Password">
-      <br><br>
       <input type="submit" value="login">
-      <br>
     </form>
+  </div>
+</header>
+
+<body>
+  <div class="container" align="center">
+
+    <form id="registerForm" align="center">
+      <input id="newId" type="text" placeholder="User ID">
+      <br><br>
+      <input id="newPwd" type="text" placeholder = "Password">
+      <br><br>
+      <input id="repeatPwd" type="text" placeholder = "Re-type Password">
+      <br><br>
+      <input id="newEmail" type="text" placeholder = "Email address">
+      <br><br>
+      <input id="legalName" type="text" placeholder = "Full Legal Name">
+      <br><br><br>
+      <input type="submit" value="submit">
+    </form>
+
     <p>Not a member yet? <a href="register.html">Register</a></p>
   </div>
   <script type="text/javascript" src="login.js"></script>
