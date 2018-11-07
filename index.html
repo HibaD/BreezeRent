@@ -12,29 +12,30 @@
     <div class="logo">
       BreezeRent
     </div>
-    
+
     <form id="loginForm" align="right">
       <input id="userid" type="text" placeholder="User ID">
-      <input id="pwd" type="text" placeholder = "Password">
+      <input id="pwd" type="password" placeholder = "Password">
+
       <input type="submit" value="login">
     </form>
 
   </div>
-  <div class="container" align="center">
-    <div>
+  <div class="container">
+    <form id="registerForm" align="right">
       <p>Not a member yet? Register now!</p>
-    </div>
-    <form id="registerForm" align="center">
       <input id="newId" type="text" placeholder="User ID">
       <br><br>
-      <input id="newPwd" type="text" placeholder = "Password">
+      <input id="newPwd" type="password" placeholder = "Password">
       <br><br>
-      <input id="repeatPwd" type="text" placeholder = "Re-type Password">
+      <input id="repeatPwd" type="password" placeholder = "Re-type Password">
       <br><br>
       <input id="newEmail" type="text" placeholder = "Email address">
       <br><br>
       <input id="legalName" type="text" placeholder = "Full Legal Name">
-      <br><br><br>
+      <br><br>
+      <input type="checkbox" onclick="revealPwd()">Show Password
+      <br>
       <input type="submit" value="submit">
     </form>
 
