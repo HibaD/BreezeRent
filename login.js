@@ -1,3 +1,15 @@
+function revealPwd() {
+    var x = document.getElementById("newPwd");
+    var y = document.getElementById("repeatPwd");
+    if (x.type === "password" && y.type === "password") {
+        x.type = "text";
+        y.type = "text";
+    } else {
+        x.type = "password";
+        y.type = "password";
+    }
+}
+
 const userList = {}
 
 class User {
