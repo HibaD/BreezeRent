@@ -1,5 +1,33 @@
 .logo{
-  margin: auto;
-  width: 50%;
-  padding: 5px;
+  background-color: #3498DB;
+  float: left;
+  margin-right: 5px;
+  padding: 10px;
+  font-size: 30px;
+  color: white;
+  height: inherit;
+
+}
+
+#loginForm {
+  max-width: 2000px;
+  background-color: #3498DB;
+  height: inherit;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.head{
+  height: 70px;
+}
+
+.container{
+  background-color: #EAECEE;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+#registerForm {
+  padding: 10px;
 }

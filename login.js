@@ -26,13 +26,18 @@ class User {
     }
 }
 
+// Fake data
 userList["root"] = new User("root", "csc309", "abc@a.com", "master")
 userList["root"].addRole("admin")
+userList["1"] = new User("1", "1", "one@a.com", "one")
+userList["1"].addRole("tenant")
+userList["2"] = new User("2", "2", "two@a.com", "two")
+userList["2"].addRole("landlord")
 
 
 const registerForm = document.querySelector("#registerForm")
 const loginForm = document.querySelector("#loginForm")
-console.log(registerForm)
+
 if (registerForm) {
     registerForm.addEventListener('submit', addNewUser)
 }
@@ -68,13 +73,11 @@ function addNewUser(e) {
 
     userList[id] = new User(id, pwd, email, name)
     console.log(userList[id])
-    window.open("index.html")
-    // window.location.href = "index.html"
 }
 
 function logIn(e) {
     e.preventDefault()
-    
+
     var userid = loginForm.userid.value;
     var password = loginForm.pwd.value;
 
