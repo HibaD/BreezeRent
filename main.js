@@ -7,9 +7,9 @@ const navProfile = document.querySelector("#nav-profile");
 const navMessages = document.querySelector("#nav-messages");
 const navClaims = document.querySelector("#nav-claims");
 
-window.addEventListener("scroll", function() {
-  window.scrollTo(0, 0);
-});
+// window.addEventListener("scroll", function() {
+//   window.scrollTo(0, 0);
+// });
 
 profile.innerHTML = '<object data="landlord-view.html" height="100%" width="100%"></object>';
 // messages.innerHTML = '<object data="landlord-view.html" height="100%" width="100%"></object>';
