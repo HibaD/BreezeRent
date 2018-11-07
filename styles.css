@@ -3,7 +3,7 @@
 	background-color: LightSteelBlue;
 	border: 1px solid #ddd;
     padding: 8px;
-	
+
 }
 table td{
     border: 1px solid #ddd;
@@ -21,93 +21,92 @@ body{
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 */
-.In-Progress{
-	border: 1px solid #ddd;
-	padding: 8px;
-	background-color: lightGreen;
-	width: 80px;
-	text-align:center;
+/*
+.In-Progress {
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: lightGreen;
+  width: 80px;
+  text-align: center;
 }
 
-.Rejected{
-	border: 1px solid #ddd;
-	padding: 8px;
-	background-color: tomato;
-	width: 80px;
-	text-align:center;
+.Rejected {
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: tomato;
+  width: 80px;
+  text-align: center;
 }
 
-.Active{
-	border: 1px solid #ddd;
-	padding: 8px;
-	background-color: yellow;
-	width: 80px;
-	text-align:center;
+.Active {
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: yellow;
+  width: 80px;
+  text-align: center;
+} */
+.description {
+  width: 450px;
 }
 
-.description{
-	width: 450px;
+a {
+  text-decoration: none;
+  outline: none;
 }
 
-a{
-	text-decoration:none;
-	outline: none;
+/* .newForm input, textarea {
+  padding: 10px 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: left;
+  word-wrap: break-word;
+  font-size: 14px;
+  width: 50%;
+  display: block;
+}
+.newForm .submit {
+  width: auto;
+} */
+.icon {
+  border: 1px solid black;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 2px;
 }
 
-.newForm input, textarea{
-    padding: 10px 10px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-	text-align:left;
-	word-wrap: break-word;
-	font-size:14px;
-	width: 50%;
-	display: block;
+.landlordComment {
+  position: relative;
+  left: 0;
+  border: 2px solid green;
 }
 
-.newForm .submit{
-	width: auto;
+.comment {
+  margin-bottom: 5px;
+  padding: 4px;
+  border-radius: 25px;
+  padding-right: 14px;
+  padding-left: 12px;
+  width: 50%;
+  word-wrap: break-word;
 }
 
-.icon{
-	border: 1px solid black;
-	border-radius:50%;
-	height: 25px;
-	width: 25px;
-	text-align: center;
-	display:inline-block;
-	margin-right:2px;
-}
-.landlordComment{
-	position: relative;
-	left: 0;
-	border: 2px solid green;
+.tenantComment {
+  position: relative;
+  left: 45%;
+  border: 2px solid purple;
+  display: block;
 }
 
-.comment{
-	margin-bottom:5px;
-	padding:4px;
-	border-radius: 25px;
-	padding-right:14px;
-	padding-left: 12px;
-	width: 50%;
-	word-wrap: break-word;
-}
-
-.tenantComment{
-	position: relative;
-	left: 45%;
-	border: 2px solid purple;
-	display:block;
-}
-
-.comments{
-	margin-bottom: 10px;
-	width: 50%;
-	height: auto;
-	border: 2px solid lightGrey;
-	padding: 10px;
-	display:block;
+.comments {
+  margin-bottom: 10px;
+  width: 50%;
+  height: auto;
+  border: 2px solid lightGrey;
+  padding: 10px;
+  display: block;
 }
