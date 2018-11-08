@@ -10,6 +10,7 @@ function revealPwd() {
     }
 }
 
+// make server call to retreive user list (if needed)
 const userList = {}
 
 class User {
@@ -82,7 +83,7 @@ function addNewUser(e) {
         console.log("password not matching")
         return // pwd not matching
     }
-
+    // make server calls to add new user
     userList[id] = new User(id, pwd, email, name)
     console.log(userList[id])
 }
@@ -93,12 +94,13 @@ function logIn(e) {
     var userid = loginForm.userid.value;
     var password = loginForm.pwd.value;
 
+    // make server calls to check user validation
     if (userid in userList) {
         if (userList[userid].pwd === password) {
             if ("admin" in userList[userid].role) {
                 window.location.href = "main-admin.html"
             } else if ("landlord" in userList[userid].role) {
-                window.location.href = "landlord-view.html"
+                window.location.href = "main.html"
             } else if ("tenant" in userList[userid].role) {
                 window.location.href = "main-tenant.html"
             }
