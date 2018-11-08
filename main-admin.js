@@ -53,7 +53,7 @@ function editUser (){
 	saveBtn.appendChild(btnI);
 	column[3].appendChild(saveBtn);
 }
-
+//save form data to db
 function saveData(){
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let username = ((column[0].children)[0]).value;
@@ -115,7 +115,7 @@ function editProperty (){
 	saveBtn.appendChild(btnI);
 	column[4].appendChild(saveBtn);
 }
-
+//save form data to db
 function saveChanges(){
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let property = ((column[0].children)[0]).value;
