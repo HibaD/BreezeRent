@@ -16,7 +16,7 @@ class Comment {
     this.comment = comment;
   }
 }
-
+//server call to initialize claims page and pull data from db
 function initialize() {
   const claimEx1 = new Claim('Fix kitchen sink', 'Water fills up in sink and takes a long time to drain', 'Test');
   const claimEx2 = new Claim('Toilet clogged', 'Water fills up in sink and takes a long time to drain', 'Test');
