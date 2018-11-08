@@ -15,6 +15,7 @@ function revealPwd() {
   }
 }
 
+// make server call to retreive user list (if needed)
 const userList = {}
 
 class User {
@@ -71,6 +72,7 @@ function addNewUser(e) {
   var pwd2 = registerForm.repeatPwd.value;
   var email = registerForm.newEmail.value;
   var name = registerForm.legalName.value;
+  var role = registerForm.role.value;
 
   if (id in userList) {
     if (email === userList[id].email) {
@@ -82,14 +84,18 @@ function addNewUser(e) {
     }
     return
   }
+  return
+}
 
-  if (pwd !== pwd2) {
-    console.log("password not matching")
-    return // pwd not matching
-  }
+if (pwd !== pwd2) {
+  console.log("password not matching")
+  return // pwd not matching
+}
+// make server calls to add new user
+userList[id] = new User(id, pwd, email, name)
+userList[id].addRole(role)
 
-  userList[id] = new User(id, pwd, email, name)
-  console.log(userList[id])
+console.log(userList[id])
 }
 
 function logIn(e) {
@@ -98,20 +104,26 @@ function logIn(e) {
   var userid = loginForm.userid.value;
   var password = loginForm.pwd.value;
 
+  // make server calls to check user validation
   if (userid in userList) {
     if (userList[userid].pwd === password) {
-      if ("admin" in userList[userid].role) {
+      if (userList[userid].role.indexOf("admin") > -1) {
         window.location.href = "main-admin.html"
-      } else if ("landlord" in userList[userid].role) {
-        window.location.href = "landlord-view.html"
-      } else if ("tenant" in userList[userid].role) {
+      } else if (userList[userid].role.indexOf("landlord") > -1) {
+        window.location.href = "main.html"
+      } else if (userList[userid].role.indexOf("tenant") > -1) {
         window.location.href = "main-tenant.html"
+      } else {
+        window.location.href = "main.html"
       }
       return //login
     }
     console.log("Wrong Password")
     return //fail
   }
-  console.log("user does not exist")
+  console.log("Wrong Password")
   return //fail
+}
+console.log("user does not exist")
+return //fail
 }

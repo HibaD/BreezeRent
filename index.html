@@ -46,28 +46,36 @@
         <p>Not a member yet? Register now!</p>
         <form id="registerForm">
           <div class="form-group">
-            <label for="newId">Username</label>
+            <label class="col-form-label col-form-label-sm" for="newId">Username</label>
             <input type="text" class="form-control form-control-sm" id="newId" placeholder="Enter username">
           </div>
 
           <div class="form-group">
-            <label for="newPwd">Password</label>
+            <label class="col-form-label col-form-label-sm" for="newPwd">Password</label>
             <input type="password" class="form-control form-control-sm" id="newPwd" placeholder="Enter password">
           </div>
 
           <div class="form-group">
-            <label for="repeatPwd">Re-enter password</label>
+            <label class="col-form-label col-form-label-sm" for="repeatPwd">Re-enter password</label>
             <input type="password" class="form-control form-control-sm" id="repeatPwd" placeholder="Re-enter password">
           </div>
 
           <div class="form-group">
-            <label for="newEmail">Email address</label>
+            <label class="col-form-label col-form-label-sm" for="newEmail">Email address</label>
             <input type="email" class="form-control form-control-sm" id="newEmail" placeholder="Enter email address">
           </div>
 
           <div class="form-group">
-            <label for="legalName">Full legal name</label>
+            <label class="col-form-label col-form-label-sm" for="legalName">Full legal name</label>
             <input type="text" class="form-control form-control-sm" id="legalName" placeholder="Enter name">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="role">Role</label>
+            <select class="form-control form-control-sm" name="selectRole" id="role">
+              <option value="landlord">Landlord</option>
+              <option value="tenant">Tenant</option>
+            </select>
           </div>
 
           <div class="form-group form-check">
@@ -79,6 +87,19 @@
 
         </form>
 
+      </div>
+
+      <div class="col-1"></div>
+
+      <div class="col-4">
+
+        <span class="bigLogo">
+          <i class="fas fa-wind"></i>
+        </span>
+
+        <h1>BreezeRent</h1>
+
+        <p>Communication platform for landlords & tenants.</p>
       </div>
     </div>
   </div>
