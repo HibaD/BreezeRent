@@ -5,18 +5,14 @@
     width: 50%;
 }
 
-
-#user_description {
-  width:500px;
-  position: absolute;
-  left: 50px;
+#add-tenants{
+  width:65px;
+  margin-left:40px;
 }
 
-#Notices {
-  width:45%;
-  position: absolute;
-  right: 50px;
-  margin-bottom: 20px;
+#add-notices{
+  width:65px;
+  margin-left:40px
 }
 
 #notices-submit {
@@ -27,8 +23,19 @@
   position: absolute;;
 }
 
+#tenants-submit {
+  margin-right: 130px;
+}
+
 #user-div {
   display:inline-block;
-  width: 45%;
-  float:left;
+  min-width: 200px;
+  max-width: 500px;
+  float:left
+}
+
+#notice-div {
+  display:inline-block;
+  min-width: 200px;
+  max-width: 500px;
 }
