@@ -1,3 +1,7 @@
+const showPasswordCheckbox = document.querySelector("#show-password");
+
+showPasswordCheckbox.addEventListener("click", revealPwd);
+
 function revealPwd() {
     var x = document.getElementById("newPwd");
     var y = document.getElementById("repeatPwd");
