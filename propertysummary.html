@@ -26,7 +26,7 @@
   <div>
     <div class="tab-content" id="panels">
 
-        <div class="text-center" id="property-name">PROPERTY NAME</div>
+        <div class="text-center" id="property-name"><h4>PROPERTY NAME</h4></div>
 
         <img src="property.jpeg" class="center" alt="property picture" height="400" width="400">
 
@@ -40,7 +40,7 @@
           <input type="text" readonly class="form-control-plaintext" value="Tenants">
         </div>
         <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" id="tenants-input" >
+          <input type="text" class="form-control" id="tenants-input" placeholder="tenant username">
         </div>
         <button type="submit" class="btn btn-primary mb-2" id='tenants-submit'>Add</button>
 
@@ -49,18 +49,17 @@
           <input type="text" readonly class="form-control-plaintext" value="Notices">
         </div>
         <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" id="notice-input">
+          <input type="text" class="form-control" id="notice-input" placeholder="notice content">
         </div>
         <button type="submit" class="btn btn-primary mb-2" id="notice-submit">Submit</button>
       </form>
 
       <br><br>
 
-  <div class="col-7" id="user-div">
-      <div class="tab-content">
-
-        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-          <table class="table table-striped" id="user-table">
+	<div class="container-fluid" id="user-div">
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+          <h4 class="d-inline">Tenants</h4>
+		  <table class="table table-striped" id="user-table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -83,17 +82,14 @@
                 <td>ccore</td>
               </tr>
             </tbody>
-          </table>
-
-        </div>       
+          </table>       
       </div>
     </div>
 
-    <div class="col-7" id="notice-div">
-      <div class="tab-content">
-
-        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-          <table class="table table-striped" id="notice-table">
+    <div class="container-fluid" id="notice-div">
+       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+          <h4 class="d-inline">Active Notices</h4>
+		  <table class="table table-striped" id="notice-table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -113,7 +109,6 @@
 
         </div>
         
-      </div>
     </div>
 
 </div>
