@@ -1,30 +1,26 @@
 # team09 phase1.txt
 
-How to begin using this web app should be straight forward.
+The appliation begins on the registration/login page.
 
-We have 3 fake accounts ready for you to try.
+There are 3 ready-to-use login credentials, listed below:
 
 1.  admin
 
-userid : root
-pwd : csc309
+username : root
+password : csc309
 
 2. Landlord
 
-userid : 1
-pwd : 1
+username : 1
+password : 1
 
 3. tenant
 
-userid : 2
-pwd : 2
+username : 2
+password : 2
 
-You can also create your own profile and test the credentials. You will only be able to choose from Landlord or Tenant as your role.
+Registration for new accounts is also supported. However, the roles available for external registration are "landlord" and "tenant" only.
 
-Our web app offers many functionalities depending on your role.
+Different views and different features are displayed depending on the account type. More specifically, admins have a quite different view compared to landlords and tenants, and have the access to modify other user profiles and properties. Landlords can create property profile, invite tenants using tenants' usernames.  They also can create any notices that will be visible to tenants. Tenants can file a claim for leased property.  Landlord and tenants can communicate about the claims using our application.
 
-Admins can edit user profile, and property profile.
-
-Landlord can create property profile, invite tenants using tenants' usernames.  They also can create any notices that will be visible to tenants.
-
-Tenants can file a claim for leased property.  Landlord and tenants can communicate about the claims using our application.
+For this project, we made use of Bootstrap for styling and some components. We also used FontAwesome (fontawesome.com) under their free license for our logo and some icons.
