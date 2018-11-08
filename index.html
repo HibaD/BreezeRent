@@ -1,50 +1,111 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
+
+  <title>BreezeRent</title>
+
 </head>
 
 <body>
-  <div class="head">
-    <div class="logo">
-      BreezeRent
+
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="logo">
+      <i class="fas fa-wind"></i>
+    </span>
+
+    <form id="loginForm">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control form-control-sm" placeholder="Username" id="userid">
+        </div>
+        <div class="col">
+          <input type="password" class="form-control form-control-sm" placeholder="Password" id="pwd">
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary btn-sm">Log in</button>
+        </div>
+      </div>
+    </form>
+  </nav>
+
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <div class="col-4">
+        <br>
+        <p>Not a member yet? Register now!</p>
+        <form id="registerForm">
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="newId">Username</label>
+            <input type="text" class="form-control form-control-sm" id="newId" placeholder="Enter username">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="newPwd">Password</label>
+            <input type="password" class="form-control form-control-sm" id="newPwd" placeholder="Enter password">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="repeatPwd">Re-enter password</label>
+            <input type="password" class="form-control form-control-sm" id="repeatPwd" placeholder="Re-enter password">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="newEmail">Email address</label>
+            <input type="email" class="form-control form-control-sm" id="newEmail" placeholder="Enter email address">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="legalName">Full legal name</label>
+            <input type="text" class="form-control form-control-sm" id="legalName" placeholder="Enter name">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="role">Role</label>
+            <select class="form-control form-control-sm" name="selectRole" id="role">
+              <option value="landlord">Landlord</option>
+              <option value="tenant">Tenant</option>
+            </select>
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="show-password">
+            <label class="form-check-label" for="exampleCheck1">Show password</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+      </div>
+
+      <div class="col-1"></div>
+
+      <div class="col-4">
+
+        <span class="bigLogo">
+          <i class="fas fa-wind"></i>
+        </span>
+
+        <h1>BreezeRent</h1>
+
+        <p>Communication platform for landlords & tenants.</p>
+      </div>
     </div>
-
-    <form id="loginForm" align="right">
-      <input id="userid" type="text" placeholder="User ID">
-      <input id="pwd" type="password" placeholder = "Password">
-
-      <input type="submit" value="login">
-    </form>
-
   </div>
-  <div class="container">
-    <form id="registerForm" align="center">
-      <p>Not a member yet? Register now!</p>
-      <input id="newId" type="text" placeholder="User ID">
-      <br><br>
-      <input id="newPwd" type="password" placeholder = "Password">
-      <br><br>
-      <input id="repeatPwd" type="password" placeholder = "Re-type Password">
-      <br><br>
-      <input id="newEmail" type="text" placeholder = "Email address">
-      <br><br>
-      <input id="legalName" type="text" placeholder = "Full Legal Name">
-      <br><br>
-      Role :
-      <select name="selectRole" id="role">
-        <option value="landlord">Landlord</option>
-        <option value="tenant">Tenant</option>
-      </select>
-      <br><br>
-      <input type="checkbox" onclick="revealPwd()">Show Password
-      <br>
-      <input type="submit" value="submit">
-    </form>
 
-  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script type="text/javascript" src="login.js"></script>
 </body>

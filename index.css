@@ -1,12 +1,13 @@
-.logo{
-  background-color: #3498DB;
-  float: left;
-  padding: 10px;
-  font-size: 30px;
-  color: white;
-  box-sizing: border-box;
+.logo {
+  color: #FFF;
+  font-size: 1.5em;
 }
 
+.bigLogo {
+  font-size: 10em;
+}
+
+/*
 #loginForm {
   min-width: 200px;
   background-color: #3498DB;
@@ -34,4 +35,4 @@
 #registerForm {
   padding: 10px;
   margin-left: 20%;
-}
+} */
