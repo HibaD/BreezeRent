@@ -56,12 +56,11 @@ function addClaim(e) {
   const textTitle = (document.querySelector("#title")).value;
   const textDescription = (document.querySelector("#description")).value;
 
-  console.log(claimList);
   const claim = new Claim(textTitle, textDescription, 'Test')
   claimList.push(claim);
 
   addToClaimTableTenant(claim);
-
+  document.getElementById("addNewClaim").reset();
 }
 
 function addToClaimTableTenant(claim) {
