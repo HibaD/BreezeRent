@@ -28,30 +28,24 @@
 
         <div class="text-center" id="property-name"><h4>PROPERTY NAME</h4></div>
 
-        <img src="property.jpeg" class="center" alt="property picture" height="400" width="400">
+        <img src="property.jpeg" alt="property picture" height="35%" width="100%">
 
         <br><br>
 
     </div>
 
-      <form class="form-inline">
-        <div class="form-group mb-2" id="add-tenants">
-          <label  class="sr-only">Tenants</label>
-          <input type="text" readonly class="form-control-plaintext" value="Tenants">
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" id="tenants-input" placeholder="tenant username">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2" id='tenants-submit'>Add</button>
-
-        <div class="form-group mb-2" id="add-notices">
-          <label  class="sr-only">Notices</label>
-          <input type="text" readonly class="form-control-plaintext" value="Notices">
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" id="notice-input" placeholder="notice content">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2" id="notice-submit">Submit</button>
+      <form class="form-inline text-center">
+        <div class="form-group mx-sm-3">
+          <label class="mx-1">Tenants:</label>
+		  <input type="text" class="form-control" id="tenants-input" placeholder="tenant username">
+        <button type="submit" class="btn btn-primary mx-1" id='tenants-submit'>Add</button>
+		</div>
+        <div class="form-group mx-sm-3">
+          <label class="mx-1">Notice:</label>
+		  <input type="text" class="form-control" id="notice-input" placeholder="notice content">
+        
+        <button type="submit" class="btn btn-primary mx-1" id="notice-submit">Submit</button>
+		</div>
       </form>
 
       <br><br>
