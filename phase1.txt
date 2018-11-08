@@ -1,1 +1,30 @@
 # team09 phase1.txt
+
+How to begin using this web app should be straight forward.
+
+We have 3 fake accounts ready for you to try.
+
+1.  admin
+
+userid : root
+pwd : csc309
+
+2. Landlord
+
+userid : 1
+pwd : 1
+
+3. tenant
+
+userid : 2
+pwd : 2
+
+You can also create your own profile and test the credentials. You will only be able to choose from Landlord or Tenant as your role.
+
+Our web app offers many functionalities depending on your role.
+
+Admins can edit user profile, and property profile.
+
+Landlord can create property profile, invite tenants using tenants' usernames.  They also can create any notices that will be visible to tenants.
+
+Tenants can file a claim for leased property.  Landlord and tenants can communicate about the claims using our application.

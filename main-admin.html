@@ -1,10 +1,23 @@
 <html>
 <head>
-	<title>Admin Page</title>
+	<title>Breeze Rent - Administrator Panel</title>
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style>h4{color: white; display:inline; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;}</style>
+</head>
 <body>
-	<div class="container">
+
+	<nav class="navbar navbar-dark bg-dark">
+		<span class="logo">
+		  <i class="fas fa-wind"></i> <h4>Administrator Panel</h4>
+		</span>
+		
+   	 	<button type="button" class="btn btn-primary btn-sm" id="logOut">Log out</button>
+	</nav>
+	<br>
+	<div class="container-fluid">
 		<i class="material-icons">person</i>  <h3 class="d-inline">Users</h3>
 		<div class="table-responsive">
 		<table id="userTable" class="table table-striped">
@@ -37,7 +50,7 @@
 		</table>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container-fluid">
 		<i class="material-icons">home</i>  <h3 class="d-inline">Property</h3>
 		<div class="table-responsive">
 		<table id="propertyTable" class="table table-striped">
@@ -57,7 +70,8 @@
 				<td>15 Cumberland Avenue, Toronto ON</td>
 				<td>Not Available</td>
 				<td><button onclick="editProperty()"><i class="material-icons">edit</i></button>
-				<button onclick="removeProperty()"><i class="material-icons">delete</i></button></td>
+				<button onclick="removeProperty()"><i class="material-icons">delete</i></button>
+				</td>
 			</tr>
 			<tr>
 				<td>House 1</td>
@@ -65,7 +79,8 @@
 				<td>3469 Woodland Avenue, Toronto ON</td>
 				<td>Available</td>
 				<td><button onclick="editProperty()"><i class="material-icons">edit</i></button>
-				<button onclick="removeProperty()"><i class="material-icons">delete</i></button></td>
+				<button onclick="removeProperty()"><i class="material-icons">delete</i></button>
+				</td>
 			</tr>
 			</tbody>
 		</table>
