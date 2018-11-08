@@ -1,6 +1,6 @@
 # team09 phase1.txt
 
-The appliation begins on the registration/login page.
+The appliation begins on the registration/login page - index.html
 
 There are 3 ready-to-use login credentials, listed below:
 
