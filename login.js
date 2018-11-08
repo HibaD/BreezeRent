@@ -2,7 +2,6 @@ const showPasswordCheckbox = document.querySelector("#show-password");
 
 showPasswordCheckbox.addEventListener("click", revealPwd);
 
-
 function revealPwd() {
   var x = document.getElementById("newPwd");
   var y = document.getElementById("repeatPwd");
@@ -84,18 +83,16 @@ function addNewUser(e) {
     }
     return
   }
-  return
-}
 
-if (pwd !== pwd2) {
-  console.log("password not matching")
-  return // pwd not matching
-}
-// make server calls to add new user
-userList[id] = new User(id, pwd, email, name)
-userList[id].addRole(role)
+  if (pwd !== pwd2) {
+    console.log("password not matching")
+    return // pwd not matching
+  }
+  // make server calls to add new user
+  userList[id] = new User(id, pwd, email, name)
+  userList[id].addRole(role)
 
-console.log(userList[id])
+  console.log(userList[id])
 }
 
 function logIn(e) {
@@ -121,9 +118,6 @@ function logIn(e) {
     console.log("Wrong Password")
     return //fail
   }
-  console.log("Wrong Password")
+  console.log("user does not exist")
   return //fail
-}
-console.log("user does not exist")
-return //fail
 }
