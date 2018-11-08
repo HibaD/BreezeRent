@@ -67,6 +67,7 @@ function addNewUser(e) {
     var pwd2 = registerForm.repeatPwd.value;
     var email = registerForm.newEmail.value;
     var name = registerForm.legalName.value;
+    var role = registerForm.role.value;
 
     if (id in userList) {
         if (email === userList[id].email) {
@@ -85,6 +86,8 @@ function addNewUser(e) {
     }
     // make server calls to add new user
     userList[id] = new User(id, pwd, email, name)
+    userList[id].addRole(role)
+    
     console.log(userList[id])
 }
 
@@ -97,12 +100,14 @@ function logIn(e) {
     // make server calls to check user validation
     if (userid in userList) {
         if (userList[userid].pwd === password) {
-            if ("admin" in userList[userid].role) {
+            if (userList[userid].role.indexOf("admin") > -1) {
                 window.location.href = "main-admin.html"
-            } else if ("landlord" in userList[userid].role) {
+            } else if (userList[userid].role.indexOf("landlord") > -1) {
                 window.location.href = "main.html"
-            } else if ("tenant" in userList[userid].role) {
+            } else if (userList[userid].role.indexOf("tenant") > -1) {
                 window.location.href = "main-tenant.html"
+            } else {
+                window.location.href = "main.html"
             }
             return //login
         }
