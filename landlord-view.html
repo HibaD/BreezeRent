@@ -29,31 +29,26 @@
 
       <div class="col-5" id="profile-div">
         <div id="profile-name-div">Name:
-          <span id="profile-name">Alex Adams</span>
+          <span id="profile-name"></span>
         </div>
 
         <br>
 
         <div id="profile-contact-div">Contact Information:
-          <span id="profile-contact">(416) 123 4567</span>
+          <span id="profile-contact"></span>
         </div>
 
         <br>
 
         <div>Role:
-          <span id="profile-role">Landlord</span>
+          <span id="profile-role"></span>
         </div>
 
         <br>
 
         <div>
           Ratings:
-          <span>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
-            <i class="far fa-star"></i>
+          <span id="profile-ratings">
           </span>
         </div>
       </div>
@@ -74,16 +69,7 @@
     <div class="row" id="property-div">
 
       <div class="col-3">
-        <div class="list-group" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">
-            Property 1
-          </a>
-          <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
-            Property 2
-          </a>
-          <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">
-            Property 3
-          </a>
+        <div class="list-group" id="property-list-tabs" role="tablist">
           <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="add-property" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">
             Add new property
           </a>
@@ -92,128 +78,6 @@
 
       <div class="col-7">
         <div class="tab-content" id="property-info-div">
-
-          <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Username</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Bob</td>
-                  <td>Brown</td>
-                  <td>bbrown</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Colin</td>
-                  <td>Core</td>
-                  <td>ccore</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Daniel</td>
-                  <td>Dare</td>
-                  <td>ddare</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="text-center">
-              <button type="button" class="btn btn-primary" id="property-detail-button">Property details</button>
-            </div>
-
-          </div>
-
-          <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Emily</td>
-                    <td>Erins</td>
-                    <td>eerins</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Fred</td>
-                    <td>Frankie</td>
-                    <td>ffrankie</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Gregory</td>
-                    <td>Gray</td>
-                    <td>ggray</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div class="text-center">
-                <button type="button" class="btn btn-primary" id="property-detail-button">Property details</button>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Bob</td>
-                    <td>Brown</td>
-                    <td>bbrown</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Colin</td>
-                    <td>Core</td>
-                    <td>ccore</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Daniel</td>
-                    <td>Dare</td>
-                    <td>ddare</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div class="text-center">
-                <button type="button" class="btn btn-primary" id="property-detail-button">Property details</button>
-              </div>
-
-            </div>
-
-          </div>
         </div>
       </div>
     </div>

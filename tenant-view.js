@@ -1,3 +1,26 @@
+class User {
+  constructor(username, name, contact, role, ratings) {
+    this.username = username;
+    this.name = name;
+    this.contact = contact;
+    this.role = role;
+    this.ratings = ratings;
+  }
+}
+
+class Notice {
+  constructor(message, date) {
+    this.message = message;
+    this.date = date;
+  }
+}
+
+// in reality the notices would be pulled in from a data source
+const notices = [
+  new Notice("Dapibus ac facilisis in", "20181101"),
+  new Notice("Porta ac consectetur ac", "20181102")
+];
+
 const updateProfileButton = document.querySelector("#update-profile-button");
 const saveProfileButton = document.querySelector("#save-profile-button");
 
@@ -5,10 +28,66 @@ const profileName = document.querySelector("#profile-name");
 const profileNameDiv = document.querySelector("#profile-name-div");
 const profileContact = document.querySelector("#profile-contact");
 const profileContactDiv = document.querySelector("#profile-contact-div");
+const profileRole = document.querySelector("#profile-role");
+const profileRatings = document.querySelector("#profile-ratings");
 
 const noticeList = document.querySelector("#notice-list");
 
 var nameInput, contactInput;
+
+// in reality this user would be pulled in from a data source
+const zac = new User(
+  "zzone",
+  "Zac Zone",
+  "(416) 123 4567",
+  "Tenant",
+  3.5
+);
+
+function displayUserInformation(user) {
+  profileName.appendChild(document.createTextNode(user.name));
+  profileContact.appendChild(document.createTextNode(user.contact));
+  profileRole.appendChild(document.createTextNode(user.role));
+
+  let numOfFullStars = Math.floor(user.ratings / 1);
+  let numOfHalfStars = user.ratings % 1 != 0;
+  let numOfEmptyStars = 5 - numOfFullStars - numOfHalfStars;
+
+  var newStar;
+  for (var i = 0; i < numOfFullStars; i++) {
+    newStar = document.createElement("i");
+    newStar.classList.add("fas");
+    newStar.classList.add("fa-star");
+    profileRatings.appendChild(newStar);
+  }
+
+  for (var i = 0; i < numOfHalfStars; i++) {
+    newStar = document.createElement("i");
+    newStar.classList.add("fas");
+    newStar.classList.add("fa-star-half-alt");
+    profileRatings.appendChild(newStar);
+  }
+
+  for (var i = 0; i < numOfEmptyStars; i++) {
+    newStar = document.createElement("i");
+    newStar.classList.add("far");
+    newStar.classList.add("fa-star");
+    profileRatings.appendChild(newStar);
+  }
+}
+
+displayUserInformation(zac);
+
+function updateUserInformation(user) {
+  if (profileName.firstChild) {
+    profileName.removeChild(profileName.firstChild);
+  }
+  profileName.appendChild(document.createTextNode(user.name));
+  if (profileContact.firstChild) {
+    profileContact.removeChild(profileContact.firstChild);
+  }
+  profileContact.appendChild(document.createTextNode(user.contact));
+}
 
 updateProfileButton.addEventListener("click", function(e) {
   e.preventDefault();
@@ -37,18 +116,41 @@ saveProfileButton.addEventListener("click", function(e) {
   updateProfileButton.removeAttribute("style");
   saveProfileButton.style.display = "none";
 
-  const newName = nameInput.value;
-  const newContact = contactInput.value;
+  zac.name = nameInput.value;
+  zac.contact = contactInput.value;
 
   nameInput.style.display = "none";
   contactInput.style.display = "none";
 
-  profileName.innerHTML = newName;
-  profileContact.innerHTML = newContact;
+  updateUserInformation(zac);
 
   profileName.removeAttribute("style");
   profileContact.removeAttribute("style");
 });
+
+function displayNotices(notices) {
+  var newNotice, closeButton, xSpan;
+  for (var i = 0; i < notices.length; i++) {
+    newNotice = document.createElement("li");
+    newNotice.classList.add("list-group-item");
+
+    closeButton = document.createElement("button");
+    closeButton.setAttribute("type", "button");
+    closeButton.classList.add("close");
+    closeButton.setAttribute("aria-label", "Close");
+
+    xSpan = document.createElement("span");
+    xSpan.setAttribute("aria-hidden", "true");
+    xSpan.innerHTML = "&times;";
+
+    closeButton.appendChild(xSpan);
+    newNotice.appendChild(document.createTextNode(notices[i].message));
+    newNotice.appendChild(closeButton);
+    noticeList.appendChild(newNotice);
+  }
+}
+
+displayNotices(notices);
 
 noticeList.addEventListener("click", function(e) {
   e.preventDefault();
