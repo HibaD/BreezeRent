@@ -1,6 +1,12 @@
 const userTable = document.querySelector("#userTable");
 const propertyTable = document.querySelector("#propertyTable");
 const deleteBtn = document.getElementById("delete");	
+const signOutButton = document.querySelector("#logOut");
+
+signOutButton.addEventListener("click", function(e) {
+  e.preventDefault();
+  window.location = "index.html";
+})
 
 function removeUser(){
 	const rowNum = event.target.parentNode.parentNode.parentNode.rowIndex;
