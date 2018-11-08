@@ -95,7 +95,13 @@ function logIn(e) {
 
     if (userid in userList) {
         if (userList[userid].pwd === password) {
-            window.location.href = "main.html"
+            if ("admin" in userList[userid].role) {
+                window.location.href = "main-admin.html"
+            } else if ("landlord" in userList[userid].role) {
+                window.location.href = "landlord-view.html"
+            } else if ("tenant" in userList[userid].role) {
+                window.location.href = "main-tenant.html"
+            }
             return //login
         }
         console.log("Wrong Password")
