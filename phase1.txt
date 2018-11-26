@@ -1,26 +1,28 @@
 # team09 phase1.txt
 
-The appliation begins on the registration/login page - index.html
+The index.html file is the gateway to the application. Use the register form to create a new user (only landlord or tenant). Log in using the credentials registered with or using the sample ones supplied below.
 
-There are 3 ready-to-use login credentials, listed below:
+Admin User:
+Username: root
+Password: csc309
+Logging in as administrator allows you to view all active active users and properties. Clicking on the edit icon allows you to edit the username, email and full name of the user and clicking save will save this data. In the same way clicking on the edit icon on the properties table would allow you to edit the property table, number of tenants, address and availability.
 
-1.  admin
+Tenant User:
+Username: 2
+Password: 2
+Logging is a tenant allows you to view your profile information and edit it. A list of active notices is also displayed. 
 
-username : root
-password : csc309
+The claims page on the left hand navigation shows all active claims you have made. You can submit a new claim through the form. 
 
-2. Landlord
+Clicking on the claim title navigates to details on the claim. The user can view any correspondence with the landlord and view details of when to expect a fix if it has been accepted.
 
-username : 1
-password : 1
+Landlord User:
+Username: 1
+Password: 1
+Logging in as a landlord allows you to view your profile information and edit it. A list of properties you own is also displayed. You can add new properties by clicking the add new property button, which navigate to a form. Also, on the home page is a property details button. On the property page the user can add tenants by username to a property which will change the status to not available if the max tenants have been reached. The landlord can also issue notices to users. All active notices and users are displayed and can be removed by clicking x. 
 
-3. tenant
-
-username : 2
-password : 2
-
-Registration for new accounts is also supported. However, the roles available for external registration are "landlord" and "tenant" only.
-
-Different views and different features are displayed depending on the account type. More specifically, admins have a quite different view compared to landlords and tenants, and have the access to modify other user profiles and properties. Landlords can create property profile, invite tenants using tenants' usernames.  They also can create any notices that will be visible to tenants. Tenants can file a claim for leased property.  Landlord and tenants can communicate about the claims using our application.
+The claims page on the left hand navigation shows all active claims from all properties. Clicking on the claim title navigates to details on the claim. The landlord can accept or reject the claim and view any correspondence with the tenant. Also clicking accept allows to notify the tenant when they will come in for inspection/fix, etc.
 
 For this project, we made use of Bootstrap for styling and some components. We also used FontAwesome (fontawesome.com) under their free license for our logo and some icons.
+
+Overview of routes added - TODO
