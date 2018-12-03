@@ -21,36 +21,40 @@
 <body>
   <div class="container-fluid">
 
-  <div>
-    <div class="tab-content" id="panels">
-
-        <div class="text-center" id="property-name"><h4>PROPERTY NAME</h4></div>
-
-        <img src="../Img/property.jpeg" alt="property picture" height="35%" width="100%">
-
-        <br><br>
-
+  <div class="container">
+    <div class="row">
+		<div class="col-sm-6" id="panels">
+			<img src="../Img/property.jpeg" class="center" alt="property picture" height="400" width="400">
+		</div>
+        <div class="col-sm-6" id="panels">
+			<div class="center">
+				<div class="input-group mb-3">
+					<h4>Property Name</h4>
+				</div>
+				<div class="input-group mb-1">
+					<p><strong>Address:</strong> of property will be long</p>
+				</div>
+				
+				<form>
+					<label><strong>Add Tenant:</strong></label>
+					<div class="form-inline form-group mb-3">
+						<input type="text" class="form-control" id="tenants-input" placeholder="tenant username">
+						<button type="submit" class="btn btn-primary mx-1" id='tenants-submit'>Add</button>
+					</div>
+					<label><strong>Add Notice:</strong></label>
+					<div class="form-inline form-group mb-3">
+						<input type="text" class="form-control" id="notice-input" placeholder="notice content">
+						<button type="submit" class="btn btn-primary mx-1" id="notice-submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
     </div>
-
-      <form class="form-inline text-center">
-        <div class="form-group mx-sm-3">
-          <label class="mx-1">Tenants:</label>
-		  <input type="text" class="form-control" id="tenants-input" placeholder="tenant username">
-        <button type="submit" class="btn btn-primary mx-1" id='tenants-submit'>Add</button>
-		</div>
-        <div class="form-group mx-sm-3">
-          <label class="mx-1">Notice:</label>
-		  <input type="text" class="form-control" id="notice-input" placeholder="notice content">
-        
-        <button type="submit" class="btn btn-primary mx-1" id="notice-submit">Submit</button>
-		</div>
-      </form>
-
-      <br><br>
-
-	<div class="container-fluid" id="user-div">
+	<div class="row info-tables">
+	<div class="col-sm-6" id="user-div">
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
           <h4 class="d-inline">Tenants</h4>
+		  <p class="mx-1">Max tenants: </p>
 		  <table class="table table-striped" id="user-table">
             <thead>
               <tr>
@@ -78,9 +82,10 @@
       </div>
     </div>
 
-    <div class="container-fluid" id="notice-div">
+    <div class="col-sm-6" id="notice-div">
        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
           <h4 class="d-inline">Active Notices</h4>
+		  <p class="mx-1">Click x to remove</p>
 		  <table class="table table-striped" id="notice-table">
             <thead>
               <tr>
@@ -102,6 +107,7 @@
         </div>
         
     </div>
+	</div>
 
 </div>
   
