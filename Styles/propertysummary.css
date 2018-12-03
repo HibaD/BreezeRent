@@ -1,8 +1,6 @@
 .center {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    width: 90%;
 }
 
 #add-tenants{
@@ -38,4 +36,13 @@
   display:inline-block;
   min-width: 200px;
   max-width: 500px;
+}
+
+#property-form{
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+.info-tables{
+	margin-top:20px;
 }
