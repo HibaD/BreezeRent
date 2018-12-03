@@ -19,49 +19,47 @@
 </head>
 
 <body>
-  <br><br>
+	<div class="container row">
+		<div class="col-sm-6" id="panels">
+			<img src="../Img/property.jpeg" class="center" alt="property picture" height="400" width="400">
+		</div>
+		<div class="col-sm-6">
+			<form id="property-form" novalidate>
+				<div id="property-registry" class="center" novalidate>
+					<div class="input-group mb-3">
+					<h3> Fill in information below for new property</h3>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="propertyName" placeholder="Name of Property" aria-label="property" aria-describedby="inputGroupPrepend" required>
+						<div class="invalid-feedback">
+							Please provide property name.
+						</div>
+					</div>
+					
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="validationCustomUsername" placeholder="Address" aria-label="address" aria-describedby="inputGroupPrepend" required>
+						<div class="invalid-feedback">
+							Please add an address.
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Max No. Tenants" aria-label="numberOfTenants" aria-describedby="basic-addon1" required>
+						<div class="invalid-feedback">
+								Please add the number of tenants.
+						</div>
+					</div>
 
-  <div>
-    <div class="tab-content" id="panels">
+					<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Availability" aria-label="availability" aria-describedby="basic-addon1">
+					</div>
+				</div>
 
-        <div class="text-center" id="property-name">INSERT NAME OF PROPERTY</div>
-
-        <img src="../Img/property.jpeg" class="center" alt="property picture" height="400" width="400">
-
-        <br><br>
-
-    </div>
-
-    <form class="needs-validation" id="property-form" novalidate>
-
-    <div id="property-registry" class="center" class="needs-validation" novalidate>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" id="validationCustomUsername" placeholder="address" aria-label="address" aria-describedby="inputGroupPrepend" required>
-        <div class="invalid-feedback">
-            Please add an address.
-        </div>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="# of tenants allowed" aria-label="numberOfTenants" aria-describedby="basic-addon1" required>
-        <div class="invalid-feedback">
-                Please add the number of tenants.
-        </div>
-    </div>
-
-    <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="availability" aria-label="availability" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="invitationlink" aria-label="invitationlink" aria-describedby="basic-addon1">
-    </div>
-
-    </div>
-
-    <div id="add_tenant" class="text-center">
-        <button type="submit" class="btn btn-outline-primary" id="save-button">Save</button>
-    </div>
-</form>
-
+				<div id="add_tenant" class="text-center">
+					<button type="submit" class="btn btn-outline-primary" id="save-button">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
     
   <!-- Optional JavaScript -->
   <script type="text/javascript" src="../Scripts/propertyregistry.js"></script>
