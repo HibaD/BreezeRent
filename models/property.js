@@ -1,15 +1,11 @@
 const mongoose = require('mongoose')
 
+
+
 const PropertySchema = mongoose.model('Property', {
-	address: {
-		type: String
-	},
-	notices: {
-		type: [NoticeSchema]
-	},
-  capacity: {
-    type : Number
-  }
+	address: String,
+	notices: [NoticeSchema],
+  capacity: Number
 })
 
 module.exports = { PropertySchema }
