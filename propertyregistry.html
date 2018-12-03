@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" ng-app="myApp" ng-controller="AppCtrl" lang="en">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="../Styles/propertysummary.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <title>Property Registry</title>
+</head>
+
+<body>
+	<div class="container row">
+		<div class="col-sm-6" id="panels">
+			<img src="../Img/property.jpeg" class="center" alt="property picture" height="400" width="400">
+		</div>
+		<div class="col-sm-6">
+			<form id="property-form" novalidate>
+				<div id="property-registry" class="center" novalidate>
+					<div class="input-group mb-3">
+					<h3> Fill in information below for new property</h3>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="propertyName" placeholder="Name of Property" aria-label="property" aria-describedby="inputGroupPrepend" required>
+						<div class="invalid-feedback">
+							Please provide property name.
+						</div>
+					</div>
+					
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="validationCustomUsername" placeholder="Address" aria-label="address" aria-describedby="inputGroupPrepend" required>
+						<div class="invalid-feedback">
+							Please add an address.
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Max No. Tenants" aria-label="numberOfTenants" aria-describedby="basic-addon1" required>
+						<div class="invalid-feedback">
+								Please add the number of tenants.
+						</div>
+					</div>
+
+					<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Availability" aria-label="availability" aria-describedby="basic-addon1">
+					</div>
+				</div>
+
+				<div id="add_tenant" class="text-center">
+					<button type="submit" class="btn btn-outline-primary" id="save-button">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+    
+  <!-- Optional JavaScript -->
+  <script type="text/javascript" src="../Scripts/propertyregistry.js"></script>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>
