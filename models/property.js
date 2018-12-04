@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
 
-
-
 const PropertySchema = mongoose.model('Property', {
 	address: String,
-	notices: [NoticeSchema],
+	notices: [String],
   capacity: Number
 })
 

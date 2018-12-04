@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 
+const { Property } = require('property')
+const { Claim } = require('claim')
+
 const UserSchema = mongoose.model('User', {
 	fullName: String,
   username: String,
@@ -7,8 +10,8 @@ const UserSchema = mongoose.model('User', {
   role: String,
   email: String,
   phoneNumber: String,
-  claims: [ClaimSchema],
-  property: [PropertySchema]
+  claims: [Claim],
+  property: [Property]
 })
 
 module.exports = { UserSchema }
