@@ -14,110 +14,133 @@ function revealPwd() {
     }
 }
 
-// make server call to retreive user list (if needed)
-const userList = {}
+// Setup basic users on startup
+function setup(){
+	// Admin User
+	const url = '/newUser';
+	const admin = {
+		fullname: 'Master',
+		username: 'root',
+		password: 'csc309',
+		role: 'admin'
+	}
+	const request = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(admin),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	addRequest(request);
 
-class User {
-    constructor(id, pwd, email, name) {
-        this.id = id;
-        this.pwd = pwd;
-        this.email = email;
-        this.name = name;
-        this.role = [];
-    }
+	// Landlord
+	const landlord = {
+		fullname: 'Monica Geller',
+		username: 'monicaG',
+		password: 'test1',
+		role: 'landlord',
+		email: 'monicaG@gmail.com',
+		claims: [],
+		property: []
+	}
+	const request2 = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(landlord),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	addRequest(request2);
 
-    changeName(newName) {
-      this.name = newName;
-    }
-
-    changePwd(newPwd) {
-        this.pwd = newPwd;
-    }
-
-    changeEmail(newEmail) {
-        this.email = newEmail;
-    }
-
-    addRole(role) {
-        this.role.push(role);
-    }
+	//Tenant
+	const tenant = {
+		fullname: 'Rachel Green',
+		username: 'rachelG',
+		password: 'test2',
+		role: 'tenant',
+		email: 'rachelG@gmail.com',
+		claims: [],
+		property: []
+	}
+	const request3 = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(tenant),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	addRequest(request3);
 }
-
-// Fake data
-userList["root"] = new User("root", "csc309", "abc@a.com", "master")
-userList["root"].addRole("admin")
-userList["1"] = new User("1", "1", "one@a.com", "one")
-userList["1"].addRole("landlord")
-userList["2"] = new User("2", "2", "two@a.com", "two")
-userList["2"].addRole("tenant")
-
+//setup();
+function addRequest(request){
+	fetch(request)
+    .then(function(res) {
+        // Handle response we get from the API
+        // Usually check the error codes to see what happened
+        const message = document.querySelector('#message')
+        if (res.status === 200) {
+            message.innerText = 'You have successfully Registered'
+            message.setAttribute("style", "color: green")
+            registerForm.reset();
+        } else {
+            message.innerText = 'User already exists'
+            message.setAttribute("style", "color: red")
+     
+        }
+        
+    }).catch((error) => {
+        console.log(error)
+    })
+}
 
 const registerForm = document.querySelector("#registerForm")
-const loginForm = document.querySelector("#loginForm")
+//const loginForm = document.querySelector("#loginForm")
 
 if (registerForm) {
-    registerForm.addEventListener('submit', addNewUser)
+	const btn = document.querySelector("#newUser");
+    btn.addEventListener('click', addNewUser)
 }
-if (loginForm) {
-    loginForm.addEventListener('submit', logIn)
-}
-
 
 function addNewUser(e) {
     e.preventDefault()
-
-    var id = registerForm.newId.value;
+	var username = registerForm.newId.value;
     var pwd = registerForm.newPwd.value;
     var pwd2 = registerForm.repeatPwd.value;
     var email = registerForm.newEmail.value;
     var name = registerForm.legalName.value;
     var role = registerForm.role.value;
-
-    if (id in userList) {
-        if (email === userList[id].email) {
-            //Replace with pop up or some notification on webpage
-            console.log("existing profile, try remembering your password")
-        } else {
-            //Replace with pop up or some notification on webpage
-            console.log("existing username, choose different user ID")
-        }
-        return
-    }
-
+	console.log('adding user');
+	// TODO remove from here - check in user.js
     if (pwd !== pwd2) {
-        console.log("password not matching")
-        return // pwd not matching
+        const message = document.querySelector('#message')
+		message.innerText = 'Passwords do not match'
+        message.setAttribute("style", "color: red")
+     
+		return // pwd not matching
     }
-    // make server calls to add new user
-    userList[id] = new User(id, pwd, email, name)
-    userList[id].addRole(role)
-
-    console.log(userList[id])
-}
-
-function logIn(e) {
-    e.preventDefault()
-
-    var userid = loginForm.userid.value;
-    var password = loginForm.pwd.value;
-
-    // make server calls to check user validation
-    if (userid in userList) {
-        if (userList[userid].pwd === password) {
-            if (userList[userid].role.indexOf("admin") > -1) {
-                window.location.href = "main-admin.html"
-            } else if (userList[userid].role.indexOf("landlord") > -1) {
-                window.location.href = "main.html"
-            } else if (userList[userid].role.indexOf("tenant") > -1) {
-                window.location.href = "main-tenant.html"
-            } else {
-                window.location.href = "main.html"
-            }
-            return //login
-        }
-        console.log("Wrong Password")
-        return //fail
-    }
-    console.log("user does not exist")
-    return //fail
+   
+	// pre rules in user.js will check if user already exists
+	// make server calls to add new user
+	const url = '/newUser';
+	const newUser = {
+		fullname: name,
+		username: username,
+		password: pwd,
+		role: role,
+		email: email,
+		claims: [],
+		property: []
+	}
+	const request = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(newUser),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	addRequest(request);
 }
