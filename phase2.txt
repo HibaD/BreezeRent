@@ -25,4 +25,7 @@ The claims page on the left hand navigation shows all active claims from all pro
 
 For this project, we made use of Bootstrap for styling and some components. We also used FontAwesome (fontawesome.com) under their free license for our logo and some icons.
 
-Overview of routes added - TODO
+Overview of routes added:
+
+1) Login page: authenticate and redirect user to main dashboard
+2) Login page: new user form check if user already exists, form data is valid and save or report success/error message back to user
