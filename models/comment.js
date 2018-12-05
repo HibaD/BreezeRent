@@ -5,7 +5,9 @@ const CommentSchema = mongoose.model('Comments', {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-	content: String
+	content: {
+		type: String
+	},
 })
 
 module.exports = { CommentSchema }
