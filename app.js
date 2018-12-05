@@ -20,8 +20,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }))
 
 // static js directory
-app.use("/Scripts", express.static(__dirname + '/Scripts'))
-
+app.use(express.static(__dirname));
+app.use('/Styles',  express.static(__dirname + '/Styles'));
+app.use('/Scripts', express.static(__dirname + '/Scripts'));
+app.use('/Views',  express.static(__dirname + '/Views'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/Views/index.html');
