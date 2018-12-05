@@ -6,6 +6,8 @@ const placeholder = document.querySelector("#panel-placeholder");
 const navProfile = document.querySelector("#nav-profile");
 const navMessages = document.querySelector("#nav-messages");
 const navClaims = document.querySelector("#nav-claims");
+const navSupports = document.querySelector("#nav-supports");
+
 
 const signOutButton = document.querySelector("#signOut");
 
@@ -20,6 +22,11 @@ navProfile.addEventListener("click", function(e) {
 navClaims.addEventListener("click", function(e) {
   e.preventDefault();
   claims.innerHTML = '<object data="landlord-claim-main.html" height="100%" width="100%"></object>';
+});
+
+navSupports.addEventListener("click", function(e) {
+  e.preventDefault();
+  claims.innerHTML = '<object data="landlord-support-main.html" height="100%" width="100%"></object>';
 });
 
 signOutButton.addEventListener("click", function(e) {
