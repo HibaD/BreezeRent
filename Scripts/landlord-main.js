@@ -5,7 +5,6 @@ class Claim {
     this.property = property;
     this.claimStatus = "Active";
     this.commentList = [];
-    this.supportList = [];
   }
 }
 
