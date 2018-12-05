@@ -19,6 +19,9 @@ function removeProperty(){
 }
 
 function editUser (){
+	let editBtn = event.target.parentNode;
+	editBtn.setAttribute("onclick", "");
+	
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let username = column[0].innerText;
 	username = username.replace(/^\s+|\s+$/g, "");
@@ -55,6 +58,9 @@ function editUser (){
 }
 //save form data to db
 function saveData(){
+	let editBtn = (event.target.parentNode.parentNode.children)[0];
+	editBtn.setAttribute("onclick", "editUser()");
+	
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let username = ((column[0].children)[0]).value;
 	let email = ((column[1].children)[0]).value;
@@ -73,6 +79,9 @@ function saveData(){
 }
 
 function editProperty (){
+	let editBtn = event.target.parentNode;
+	editBtn.setAttribute("onclick", "");
+	
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let property = column[0].innerText;
 	property = property.replace(/^\s+|\s+$/g, "");
@@ -117,6 +126,9 @@ function editProperty (){
 }
 //save form data to db
 function saveChanges(){
+	let editBtn = (event.target.parentNode.parentNode.children)[0];
+	editBtn.setAttribute("onclick", "editProperty()");
+	
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let property = ((column[0].children)[0]).value;
 	let tenants = ((column[1].children)[0]).value;
