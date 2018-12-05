@@ -1,4 +1,4 @@
-# team09 phase1.txt
+# team09 phase2.txt
 
 The index.html file is the gateway to the application. Use the register form to create a new user (only landlord or tenant). Log in using the credentials registered with or using the sample ones supplied below.
 
