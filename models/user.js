@@ -1,6 +1,53 @@
 const mongoose = require('mongoose');
 const validator = require('validator')
 
+const CommentSchema = new mongoose.Schema({
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+	content: {
+		type: String
+	}
+})
+
+const ClaimSchema = new mongoose.Schema({
+  property: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Property'
+  },
+	title: {
+		type: String,
+		required: true
+	},
+	detail: {
+		type: String,
+		required: true
+	},
+  status: {
+		type: String,
+		required: true
+	},
+  comments: [CommentSchema]
+})
+
+
+const PropertySchema = new mongoose.Schema({
+	address: {
+		type: String,
+		trim: true,
+		required: true
+	},
+	notices: [String],
+  capacity: {
+		type: Number,
+		required: true
+	},
+	// Due to the structure, we need to make this
+	// list of username instead of userSchema
+	tenants: [String]
+})
+
 //creating user Schema
 const userSchema = new mongoose.Schema({
 	fullName: {
@@ -10,6 +57,7 @@ const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		trim: true,
+		unique: true,
 		required: true
 	},
 	password: {
@@ -38,49 +86,6 @@ const userSchema = new mongoose.Schema({
 	//property: [mongoose.model('Property').schema]
 })
 
-const PropertySchema = mongoose.model('Property', {
-	address: {
-		type: String,
-		trim: true,
-		required: true
-	},
-	notices: [String],
-  capacity: {
-		type: Number,
-		required: true
-	},
-	tenants: [userSchema]
-})
-
-const CommentSchema = mongoose.model('Comments', {
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-	content: {
-		type: String
-	}
-})
-
-const ClaimSchema = mongoose.model('Claim', {
-  property: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Property'
-  },
-	title: {
-		type: String,
-		required: true
-	},
-	detail: {
-		type: String
-		required: true
-	},
-  status: {
-		type: String
-		required: true
-	},
-  comments: [CommentSchema]
-})
 
 //create the model to use the schema
 const User = mongoose.model ('User', userSchema)
