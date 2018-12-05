@@ -1,20 +1,17 @@
-class User {
-  constructor(username, name, contact, role, ratings) {
-    this.username = username;
-    this.name = name;
-    this.contact = contact;
-    this.role = role;
-    this.ratings = ratings;
-  }
-}
+var sessionUser;
 
-class Property {
-  constructor(id, name, tenants) {
-    this.id = id;
-    this.name = name;
-    this.tenants = tenants;
+// Display user information
+const getUserRequest = new Request('/user/kz', { method: 'get' });
+fetch(getUserRequest).then((res) => {
+  if (res.status === 200) {
+    return res.json();
   }
-}
+}).then((user) => {
+  sessionUser = user;
+  displayUserInformation(sessionUser);
+}).catch((error) => {
+  console.log(error)
+});
 
 const addPropertyButton = document.querySelector("#add-property");
 const updateProfileButton = document.querySelector("#update-profile-button");
@@ -32,59 +29,9 @@ const propertyListTabs = document.querySelector("#property-list-tabs");
 
 var nameInput, contactInput;
 
-// in reality these users would be pulled in from a data source
-const alex = new User(
-  "aadams",
-  "Alex Adams",
-  "(416) 123 4567",
-  "Landlord",
-  4.7
-);
-
-const bob = new User(
-  "bbrown",
-  "Bob Brown",
-  "(123) 456 7890",
-  4.0
-);
-
-const colin = new User(
-  "ccore",
-  "Colin Core",
-  "(123) 456 7890",
-  1.0
-);
-
-const david = new User(
-  "ddare",
-  "David Dare",
-  "(123) 456 7890",
-  1.0
-);
-
-// in reality this info would be pulled in from a data source
-const propertyA = new Property(
-  100001,
-  "Property A",
-  [
-    bob,
-    colin
-  ]
-);
-
-const propertyB = new Property(
-  100002,
-  "Property B",
-  [
-    david
-  ]
-);
-
-const properties = [propertyA, propertyB];
-
 function displayUserInformation(user) {
-  profileName.appendChild(document.createTextNode(user.name));
-  profileContact.appendChild(document.createTextNode(user.contact));
+  profileName.appendChild(document.createTextNode(user.fullName));
+  profileContact.appendChild(document.createTextNode(user.email));
   profileRole.appendChild(document.createTextNode(user.role));
 
   let numOfFullStars = Math.floor(user.ratings / 1);
@@ -114,17 +61,27 @@ function displayUserInformation(user) {
   }
 }
 
-displayUserInformation(alex);
-
 function updateUserInformation(user) {
+  const updateUserInfoRequest = new Request('/user/kz',
+    {
+      method: 'post',
+      body: JSON.stringify(sessionUser),
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    });
+
+  fetch(updateUserInfoRequest);
+
   if (profileName.firstChild) {
     profileName.removeChild(profileName.firstChild);
   }
-  profileName.appendChild(document.createTextNode(user.name));
+  profileName.appendChild(document.createTextNode(user.fullName));
   if (profileContact.firstChild) {
     profileContact.removeChild(profileContact.firstChild);
   }
-  profileContact.appendChild(document.createTextNode(user.contact));
+  profileContact.appendChild(document.createTextNode(user.email));
 }
 
 function displayProperties(properties) {
@@ -215,14 +172,12 @@ function displayProperties(properties) {
   }
 }
 
-displayProperties(properties);
-
-addPropertyButton.addEventListener("click", function(e) {
+addPropertyButton.addEventListener("click", function (e) {
   e.preventDefault();
-  window.location = "propertyregistry.html";
+  window.location = "../Views/propertyregistry.html";
 });
 
-updateProfileButton.addEventListener("click", function(e) {
+updateProfileButton.addEventListener("click", function (e) {
   e.preventDefault();
 
   nameInput = document.createElement("input");
@@ -244,26 +199,26 @@ updateProfileButton.addEventListener("click", function(e) {
   profileContactDiv.appendChild(contactInput);
 });
 
-saveProfileButton.addEventListener("click", function(e) {
+saveProfileButton.addEventListener("click", function (e) {
   e.preventDefault();
   updateProfileButton.removeAttribute("style");
   saveProfileButton.style.display = "none";
 
-  alex.name = nameInput.value;
-  alex.contact = contactInput.value;
+  sessionUser.fullName = nameInput.value;
+  sessionUser.email = contactInput.value;
 
   nameInput.style.display = "none";
   contactInput.style.display = "none";
 
-  updateUserInformation(alex);
+  updateUserInformation(sessionUser);
 
   profileName.removeAttribute("style");
   profileContact.removeAttribute("style");
 });
 
-propertyInfoDiv.addEventListener("click", function(e) {
+propertyInfoDiv.addEventListener("click", function (e) {
   e.preventDefault();
   if (e.target.id === "property-detail-button") {
-    window.location = "propertysummary.html";
+    window.location = "../Views/propertysummary.html";
   }
 });
