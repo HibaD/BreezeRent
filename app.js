@@ -10,7 +10,7 @@ const session = require('express-session')
 const { mongoose } = require('./db/mongoose');
 
 // Import models
-const { User } = require ('./models/user')
+const { User, Property, Comments, Claim } = require('./models/user')
 
 // Express
 const port = process.env.PORT || 3000;
@@ -18,12 +18,13 @@ const app = express();
 app.use(bodyParser.json());
 
 // parse incoming parameters to req.body
-app.use(bodyParser.urlencoded({ extended:true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // static js directory
-app.use('/Styles',  express.static(__dirname + '/Styles'));
+app.use(express.static(__dirname));
+app.use('/Styles', express.static(__dirname + '/Styles'));
 app.use('/Scripts', express.static(__dirname + '/Scripts'));
-app.use('/Views',  express.static(__dirname + '/Views'));
+app.use('/Views', express.static(__dirname + '/Views'));
 
 // Add express sesssion middleware
 app.use(session({
@@ -56,11 +57,11 @@ app.route('/login').get(sessionChecker, (req, res) => {
 })
 
 // POST route to add new users
-app.post('/newUser', (req,res) => {
+app.post('/newUser', (req, res) => {
 	const role = req.body.role;
 	let user = null;
-	if (role == 'Admin'){
-		user = new User ({
+	if (role == 'Admin') {
+		user = new User({
 			fullName: req.body.fullName,
 			username: req.body.username,
 			password: req.body.password,
@@ -68,7 +69,7 @@ app.post('/newUser', (req,res) => {
 		})
 	}
 	else {
-		 user = new User ({
+		user = new User({
 			fullName: req.body.fullName,
 			username: req.body.username,
 			password: req.body.password,
@@ -93,13 +94,13 @@ app.get('/dashboard', (req, res) => {
 		
 		if (result.role == 'landlord'){
 			res.sendFile(__dirname + '/Views/main.html');
-		}else if (result.role == 'admin'){
+		} else if (result.role == 'admin') {
 			res.sendFile(__dirname + '/Views/main-admin.html');
-		}else if (result.role == 'tenant'){
+		} else if (result.role == 'tenant') {
 			res.sendFile(__dirname + '/Views/main-tenant.html');
 		}
-		
-	}).catch ((error) => {
+
+	}).catch((error) => {
 		res.status(400).send(error) // 400 for bad request
 	})
 	} else {
@@ -156,6 +157,119 @@ app.get('/users/logout', (req, res) => {
 	})
 })
 
+/* Requests for user profile */
+
+// GET user profile
+app.get('/user/:id', (req, res) => {
+	const id = req.params.id;
+
+	User.findById(id).then((user) => {
+		if (!user) {
+			res.status(404).send();
+		} else {
+			res.send(user);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+// POST update user profile
+app.post('/user/:id', (req, res) => {
+	const id = req.params.id;
+	const userInBody = req.body;
+
+	User.findByIdAndUpdate(id, { $set: userInBody }, { new: true }).then((user) => {
+		if (!user) {
+			res.status(404).send();
+		} else {
+			res.send(user);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+/* Requests for properties */
+
+// GET all properties
+app.get('/properties', (req, res) => {
+	Property.find().then((properties) => {
+		if (!properties || properties.length === 0) {
+			res.status(404).send();
+		} else {
+			res.send(properties);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	})
+});
+
+// GET all properties by user id
+app.get('/properties/:user_id', (req, res) => {
+	const userId = req.params.user_id;
+
+	Property.find().then((properties) => {
+		if (!properties || properties.length === 0) {
+			res.status(404).send();
+		} else {
+			User.findById(userId).then((user) => {
+				const username = user.username;
+				const userProperties = properties.filter(property => property.tenants.includes(username));
+				res.send(userProperties);
+			});
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+app.post('/property', (req, res) => {
+	const property = new Property(
+		{
+			address: req.body.address,
+			notices: [],
+			capacity: req.body.capacity,
+			tenants: []
+		}
+	);
+
+	property.save().then((result) => {
+		res.send(result);
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+app.post('/addUserToProperty/:username&:property_id', (req, res) => {
+	const username = req.params.username;
+	const propertyId = req.params.property_id;
+
+	Property.findById(propertyId).then(property => {
+		property.tenants.push(username);
+
+		Property.findByIdAndUpdate(propertyId, {$set: property}, {new:true}).then(result => {
+			res.send(result);
+		}).catch((error) => {
+			res.status(400).send(error);
+		});
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+/* Temp */
+app.get('/main.html', (req, res) => {
+	console.log('Going to main.. ');
+	res.sendFile(__dirname + '/Views/main.html');
+});
+
+app.get('/main-tenant.html', (req, res) => {
+	console.log('Going to main.. ');
+	res.sendFile(__dirname + '/Views/main-tenant.html');
+});
+
+
 app.listen(port, () => {
-    console.log(`Listening on port ${port}...`);
+	console.log(`Listening on port ${port}...`);
 });
