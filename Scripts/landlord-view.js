@@ -1,7 +1,9 @@
-var sessionUser;
+var sessionUser = {
+  _id: '5c08355906b93e5abbf775e0'
+};
 
 // Display user information
-const getUserRequest = new Request('/user/kz', { method: 'get' });
+const getUserRequest = new Request('/user/' + sessionUser._id, { method: 'get' });
 fetch(getUserRequest).then((res) => {
   if (res.status === 200) {
     return res.json();
@@ -10,7 +12,18 @@ fetch(getUserRequest).then((res) => {
   sessionUser = user;
   displayUserInformation(sessionUser);
 }).catch((error) => {
-  console.log(error)
+  console.log(error);
+});
+
+const getPropertiesRequest = new Request('/properties/' + sessionUser._id, { method: 'get' });
+fetch(getPropertiesRequest).then((res) => {
+  if (res.status === 200) {
+    return res.json();
+  }
+}).then((properties) => {
+  displayProperties(properties);
+}).catch((error) => {
+  console.log(error);
 });
 
 const addPropertyButton = document.querySelector("#add-property");
@@ -62,7 +75,7 @@ function displayUserInformation(user) {
 }
 
 function updateUserInformation(user) {
-  const updateUserInfoRequest = new Request('/user/kz',
+  const updateUserInfoRequest = new Request('/user/' + sessionUser._id,
     {
       method: 'post',
       body: JSON.stringify(sessionUser),
@@ -105,7 +118,7 @@ function displayProperties(properties) {
     newTab.setAttribute("href", "#" + "list-" + properties[i].id);
     newTab.setAttribute("role", "tab");
     newTab.setAttribute("aria-controls", properties[i].id);
-    newTab.appendChild(document.createTextNode(properties[i].name));
+    newTab.appendChild(document.createTextNode(properties[i].address));
     propertyListTabs.insertBefore(newTab, addPropertyButton);
 
     newPanel = document.createElement("div");

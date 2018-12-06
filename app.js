@@ -21,19 +21,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // static js directory
-<<<<<<< HEAD
 app.use(express.static(__dirname));
 app.use('/Styles', express.static(__dirname + '/Styles'));
-=======
-app.use('/Styles',  express.static(__dirname + '/Styles'));
->>>>>>> 886cb50a1a0590bb7509101174bb8e453811a339
 app.use('/Scripts', express.static(__dirname + '/Scripts'));
 app.use('/Views', express.static(__dirname + '/Views'));
 
-<<<<<<< HEAD
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/Views/index.html');
-=======
 // Add express sesssion middleware
 app.use(session({
 	secret: 'oursecret',
@@ -57,7 +49,6 @@ const sessionChecker = (req, res, next) => {
 // route for root; redirect to login
 app.get('/', sessionChecker, (req, res) => {
 	res.redirect('login');
->>>>>>> 886cb50a1a0590bb7509101174bb8e453811a339
 });
 
 // route for login
@@ -96,18 +87,12 @@ app.post('/newUser', (req, res) => {
 	})
 })
 
-<<<<<<< HEAD
-app.post('/users/login', (req, res) => {
-	User.findOne({ username: req.body.username, password: req.body.password }).then((result) => {
-		if (result.role == 'landlord') {
-=======
 app.get('/dashboard', (req, res) => {
 	// check if we have active session cookie
 	if (req.session.user != null) {
 		User.findById(req.session.user).then((result)=>{
 		
 		if (result.role == 'landlord'){
->>>>>>> 886cb50a1a0590bb7509101174bb8e453811a339
 			res.sendFile(__dirname + '/Views/main.html');
 		} else if (result.role == 'admin') {
 			res.sendFile(__dirname + '/Views/main-admin.html');
@@ -221,7 +206,7 @@ app.get('/properties', (req, res) => {
 });
 
 // GET all properties by user id
-app.get('/property/:user_id', (req, res) => {
+app.get('/properties/:user_id', (req, res) => {
 	const userId = req.params.user_id;
 
 	Property.find().then((properties) => {
@@ -281,10 +266,5 @@ app.get('/main.html', (req, res) => {
 
 
 app.listen(port, () => {
-<<<<<<< HEAD
 	console.log(`Listening on port ${port}...`);
 });
-=======
-    console.log(`Listening on port ${port}...`);
-});
->>>>>>> 886cb50a1a0590bb7509101174bb8e453811a339

@@ -1,25 +1,19 @@
-class User {
-  constructor(username, name, contact, role, ratings) {
-    this.username = username;
-    this.name = name;
-    this.contact = contact;
-    this.role = role;
-    this.ratings = ratings;
-  }
-}
+var sessionUser = {
+  _id: '5c08355906b93e5abbf775e0'
+};
 
-class Notice {
-  constructor(message, date) {
-    this.message = message;
-    this.date = date;
+// Display user information
+const getUserRequest = new Request('/user/' + sessionUser._id, { method: 'get' });
+fetch(getUserRequest).then((res) => {
+  if (res.status === 200) {
+    return res.json();
   }
-}
-
-// in reality the notices would be pulled in from a data source
-const notices = [
-  new Notice("Dapibus ac facilisis in", "20181101"),
-  new Notice("Porta ac consectetur ac", "20181102")
-];
+}).then((user) => {
+  sessionUser = user;
+  displayUserInformation(sessionUser);
+}).catch((error) => {
+  console.log(error);
+});
 
 const updateProfileButton = document.querySelector("#update-profile-button");
 const saveProfileButton = document.querySelector("#save-profile-button");
@@ -35,18 +29,10 @@ const noticeList = document.querySelector("#notice-list");
 
 var nameInput, contactInput;
 
-// in reality this user would be pulled in from a data source
-const zac = new User(
-  "zzone",
-  "Zac Zone",
-  "(416) 123 4567",
-  "Tenant",
-  3.5
-);
 
 function displayUserInformation(user) {
-  profileName.appendChild(document.createTextNode(user.name));
-  profileContact.appendChild(document.createTextNode(user.contact));
+  profileName.appendChild(document.createTextNode(user.fullName));
+  profileContact.appendChild(document.createTextNode(user.email));
   profileRole.appendChild(document.createTextNode(user.role));
 
   let numOfFullStars = Math.floor(user.ratings / 1);
@@ -76,20 +62,30 @@ function displayUserInformation(user) {
   }
 }
 
-displayUserInformation(zac);
-
 function updateUserInformation(user) {
+  const updateUserInfoRequest = new Request('/user/' + sessionUser._id,
+    {
+      method: 'post',
+      body: JSON.stringify(sessionUser),
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    });
+
+  fetch(updateUserInfoRequest);
+
   if (profileName.firstChild) {
     profileName.removeChild(profileName.firstChild);
   }
-  profileName.appendChild(document.createTextNode(user.name));
+  profileName.appendChild(document.createTextNode(user.fullName));
   if (profileContact.firstChild) {
     profileContact.removeChild(profileContact.firstChild);
   }
-  profileContact.appendChild(document.createTextNode(user.contact));
+  profileContact.appendChild(document.createTextNode(user.email));
 }
 
-updateProfileButton.addEventListener("click", function(e) {
+updateProfileButton.addEventListener("click", function (e) {
   e.preventDefault();
 
   nameInput = document.createElement("input");
@@ -111,18 +107,18 @@ updateProfileButton.addEventListener("click", function(e) {
   profileContactDiv.appendChild(contactInput);
 });
 
-saveProfileButton.addEventListener("click", function(e) {
+saveProfileButton.addEventListener("click", function (e) {
   e.preventDefault();
   updateProfileButton.removeAttribute("style");
   saveProfileButton.style.display = "none";
 
-  zac.name = nameInput.value;
-  zac.contact = contactInput.value;
+  sessionUser.fullName = nameInput.value;
+  sessionUser.email = contactInput.value;
 
   nameInput.style.display = "none";
   contactInput.style.display = "none";
 
-  updateUserInformation(zac);
+  updateUserInformation(sessionUser);
 
   profileName.removeAttribute("style");
   profileContact.removeAttribute("style");
@@ -152,7 +148,7 @@ function displayNotices(notices) {
 
 displayNotices(notices);
 
-noticeList.addEventListener("click", function(e) {
+noticeList.addEventListener("click", function (e) {
   e.preventDefault();
   if (e.target.parentElement.classList.contains("close")) {
     var notice = e.target.parentElement.parentElement;
