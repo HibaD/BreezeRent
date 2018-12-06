@@ -90,26 +90,26 @@ app.post('/newUser', (req, res) => {
 app.get('/dashboard', (req, res) => {
 	// check if we have active session cookie
 	if (req.session.user != null) {
-		User.findById(req.session.user).then((result)=>{
-		
-		if (result.role == 'landlord'){
-			res.sendFile(__dirname + '/Views/main.html');
-		} else if (result.role == 'admin') {
-			res.sendFile(__dirname + '/Views/main-admin.html');
-		} else if (result.role == 'tenant') {
-			res.sendFile(__dirname + '/Views/main-tenant.html');
-		}
+		User.findById(req.session.user).then((result) => {
 
-	}).catch((error) => {
-		res.status(400).send(error) // 400 for bad request
-	})
+			if (result.role == 'landlord') {
+				res.sendFile(__dirname + '/Views/main.html');
+			} else if (result.role == 'admin') {
+				res.sendFile(__dirname + '/Views/main-admin.html');
+			} else if (result.role == 'tenant') {
+				res.sendFile(__dirname + '/Views/main-tenant.html');
+			}
+
+		}).catch((error) => {
+			res.status(400).send(error) // 400 for bad request
+		})
 	} else {
 		res.redirect('/')
 	}
 })
 
 app.post('/findUser', (req, res) => {
-	User.findOne({username: req.body.username}).then((result)=>{
+	User.findOne({ username: req.body.username }).then((result) => {
 		res.send(result)
 		console.log(req.session.user);
 	}).catch((error) => {
@@ -118,7 +118,7 @@ app.post('/findUser', (req, res) => {
 })
 
 app.post('/user', (req, res) => {
-	User.findOne({username: req.body.username}).then((result)=>{
+	User.findOne({ username: req.body.username }).then((result) => {
 		result.username = req.body.username;
 		result.email = req.body.email;
 		result.fullName = req.body.fullName;
@@ -130,19 +130,19 @@ app.post('/user', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-	User.find({}).then((result)=>{
-		res.send({result});
+	User.find({}).then((result) => {
+		res.send({ result });
 	}).catch((error) => {
 		res.status(400).send(error)
 	})
 })
 
 app.post('/users/login', (req, res) => {
-	User.findOne({username: req.body.username, password: req.body.password}).then((result)=>{
+	User.findOne({ username: req.body.username, password: req.body.password }).then((result) => {
 		req.session.user = result._id;
 		req.session.email = result.email
 		res.redirect('/dashboard');
-	}).catch ((error) => {
+	}).catch((error) => {
 		res.status(400).redirect('/login') // 400 for bad request
 	})
 })
@@ -164,6 +164,21 @@ app.get('/user/:id', (req, res) => {
 	const id = req.params.id;
 
 	User.findById(id).then((user) => {
+		if (!user) {
+			res.status(404).send();
+		} else {
+			res.send(user);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+// GET user by username
+app.get('/userByUsername/:username', (req, res) => {
+	const username = req.params.username;
+
+	User.findOne({ username: username }).then((user) => {
 		if (!user) {
 			res.status(404).send();
 		} else {
@@ -205,8 +220,8 @@ app.get('/properties', (req, res) => {
 	})
 });
 
-// GET all properties by user id
-app.get('/properties/:user_id', (req, res) => {
+// GET all properties by tenant user id
+app.get('/propertiesByTenant/:user_id', (req, res) => {
 	const userId = req.params.user_id;
 
 	Property.find().then((properties) => {
@@ -224,9 +239,30 @@ app.get('/properties/:user_id', (req, res) => {
 	});
 });
 
+
+app.get('/propertiesByLandlord/:user_id', (req, res) => {
+	const userId = req.params.user_id;
+
+	Property.find().then((properties) => {
+		if (!properties || properties.length === 0) {
+			res.status(404).send();
+		} else {
+			User.findById(userId).then((user) => {
+				const username = user.username;
+				const userProperties = properties.filter(property => property.landlord === username);
+				res.send(userProperties);
+			});
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+// POST create property
 app.post('/property', (req, res) => {
 	const property = new Property(
 		{
+			landlord: req.body.landlord,
 			address: req.body.address,
 			notices: [],
 			capacity: req.body.capacity,
@@ -241,6 +277,7 @@ app.post('/property', (req, res) => {
 	});
 });
 
+// POST add user to property, and vice versa
 app.post('/addUserToProperty/:username&:property_id', (req, res) => {
 	const username = req.params.username;
 	const propertyId = req.params.property_id;
@@ -248,10 +285,14 @@ app.post('/addUserToProperty/:username&:property_id', (req, res) => {
 	Property.findById(propertyId).then(property => {
 		property.tenants.push(username);
 
-		Property.findByIdAndUpdate(propertyId, {$set: property}, {new:true}).then(result => {
-			res.send(result);
-		}).catch((error) => {
-			res.status(400).send(error);
+		Property.findByIdAndUpdate(propertyId, { $set: property }, { new: true }).then(() => {
+			User.findOne({ username: username }).then(user => {
+				user.property.push(property);
+
+				User.findOneAndUpdate({ username: username }, { $set: user }, { new: true }).then((result) => {
+					res.send({ property, user });
+				});
+			});
 		});
 	}).catch((error) => {
 		res.status(400).send(error);
