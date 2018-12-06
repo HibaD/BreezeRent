@@ -262,6 +262,7 @@ app.get('/propertiesByLandlord/:user_id', (req, res) => {
 app.post('/property', (req, res) => {
 	const property = new Property(
 		{
+			name: req.body.name,
 			landlord: req.body.landlord,
 			address: req.body.address,
 			notices: [],
