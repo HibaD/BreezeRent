@@ -1,9 +1,5 @@
-var sessionUser = {
-  _id: '5c08b2184985957fd61f13ac'
-};
-
 // Display user information
-const getUserRequest = new Request('/user/' + sessionUser._id, { method: 'get' });
+const getUserRequest = new Request('/sessionUser', { method: 'get' });
 fetch(getUserRequest).then((res) => {
   if (res.status === 200) {
     return res.json();
@@ -11,17 +7,15 @@ fetch(getUserRequest).then((res) => {
 }).then((user) => {
   sessionUser = user;
   displayUserInformation(sessionUser);
-}).catch((error) => {
-  console.log(error);
-});
 
-const getPropertiesRequest = new Request('/propertiesByLandlord/' + sessionUser._id, { method: 'get' });
-fetch(getPropertiesRequest).then((res) => {
-  if (res.status === 200) {
-    return res.json();
-  }
-}).then((properties) => {
-  displayProperties(properties);
+  const getPropertiesRequest = new Request('/propertiesByLandlord/' + sessionUser._id, { method: 'get' });
+  fetch(getPropertiesRequest).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+  }).then((properties) => {
+    displayProperties(properties);
+  });
 }).catch((error) => {
   console.log(error);
 });

@@ -33,6 +33,10 @@ const ClaimSchema = new mongoose.Schema({
 
 
 const PropertySchema = new mongoose.Schema({
+	name: {
+		type: String,
+		required: true
+	},
 	landlord: {
 		type: String,
 		required: true

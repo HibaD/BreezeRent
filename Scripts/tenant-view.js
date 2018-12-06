@@ -1,9 +1,5 @@
-var sessionUser = {
-  _id: '5c08b22d4985957fd61f13ad'
-};
-
 // Display user information
-const getUserRequest = new Request('/user/' + sessionUser._id, { method: 'get' });
+const getUserRequest = new Request('/sessionUser', { method: 'get' });
 fetch(getUserRequest).then((res) => {
   if (res.status === 200) {
     return res.json();
