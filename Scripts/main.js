@@ -28,8 +28,3 @@ navSupports.addEventListener("click", function(e) {
   e.preventDefault();
   claims.innerHTML = '<object data="../Views/landlord-support-main.html" height="100%" width="100%"></object>';
 });
-
-signOutButton.addEventListener("click", function(e) {
-  e.preventDefault();
-  window.location = "../Views/index.html";
-})
