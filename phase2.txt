@@ -25,7 +25,16 @@ The claims page on the left hand navigation shows all active claims from all pro
 
 For this project, we made use of Bootstrap for styling and some components. We also used FontAwesome (fontawesome.com) under their free license for our logo and some icons.
 
+List of features implemented:
+1) Login authentication: user will be redirected to login if username or password is incorrect
+2) Opening a new window with our app will redirect to logged in user - we are using sessions
+3) Login form also performs checks to see if passwords match/user exists
+4) Tenant can add claims and both users will see it with status active until landlord selects accept/reject
+5) Landlord/Tenant can change their basic information on main page
+6) Landlord can add new properties, add tenants and notices to property
+
 Overview of routes added:
 
 1) Login page: authenticate and redirect user to main dashboard
 2) Login page: new user form check if user already exists, form data is valid and save or report success/error message back to user
+3) Claim routes
