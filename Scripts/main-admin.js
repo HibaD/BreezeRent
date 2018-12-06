@@ -1,12 +1,6 @@
 const userTable = document.querySelector("#userTable");
 const propertyTable = document.querySelector("#propertyTable");
 const deleteBtn = document.getElementById("delete");	
-const signOutButton = document.querySelector("#logOut");
-
-signOutButton.addEventListener("click", function(e) {
-  e.preventDefault();
-  window.location = "index.html";
-})
 
 function removeUser(){
 	const rowNum = event.target.parentNode.parentNode.parentNode.rowIndex;
@@ -18,17 +12,99 @@ function removeProperty(){
 	propertyTable.deleteRow(rowNum);
 }
 
-function editUser (){
-	let editBtn = event.target.parentNode;
-	editBtn.setAttribute("onclick", "");
+function createUserTable(){
+	const url = '/users';
+	const request = new Request (url, {
+			method: 'get',
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	fetch(request)
+    .then((res) => { 
+        if (res.status === 200) {
+           return res.json() 
+       } else {
+            alert('Could not get users')
+       }                
+    })
+    .then((json) => {
+		for (i=0; i< json.result.length; i++){
+			addUser(json.result[i]);
+		}
+    }).catch((error) => {
+        console.log(error)
+    })
 	
+}
+createUserTable();
+
+function addUser (user){
+	let row = document.createElement('tr');
+	let col1 = document.createElement('td');
+	let col2 = document.createElement('td');
+	let col3 = document.createElement('td');
+	let col4 = document.createElement('td');
+	
+	let editBtn = document.createElement('button');
+	let trashBtn = document.createElement('button');
+
+	editBtn.setAttribute('onclick', 'editUser()');
+	trashBtn.setAttribute('onclick', 'removeUser()');
+	
+	let editIcon  = document.createElement('i');
+	let trashIcon = document.createElement('i');
+	editIcon.setAttribute('class', 'material-icons');
+	trashIcon.setAttribute('class', 'material-icons');
+	editIcon.appendChild(document.createTextNode('edit'));
+	trashIcon.appendChild(document.createTextNode('delete'));
+	
+	editBtn.appendChild(editIcon);
+	trashBtn.appendChild(trashIcon);
+	
+	const tbody = (userTable.children)[1];
+	
+	col1.appendChild(document.createTextNode(user.username));
+	col2.appendChild(document.createTextNode(user.email));
+	col3.appendChild(document.createTextNode(user.fullName));
+	col4.appendChild(editBtn);
+	col4.appendChild(trashBtn);
+	
+	row.appendChild(col1);
+	row.appendChild(col2);
+	row.appendChild(col3);
+	row.appendChild(col4);
+	tbody.appendChild(row);
+}
+
+function editUser (){
+	const url = '/findUser';
 	let column = (event.target.parentNode.parentNode.parentNode).children;
-	let username = column[0].innerText;
+	var username = column[0].innerText;
 	username = username.replace(/^\s+|\s+$/g, "");
-	let email = column[1].innerText;
+	var email = column[1].innerText;
 	email = email.replace(/^\s+|\s+$/g, "");
-	let name = column[2].innerText;
+	var name = column[2].innerText;
 	name = name.replace(/^\s+|\s+$/g, "");
+	let editBtn = event.target.parentNode;
+	
+	const findUser = {
+		username: username,
+		email: email,
+		fullName: name
+	}
+	const request = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(findUser),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	fetch(request)
+    .then((res) => {
+    editBtn.setAttribute("onclick", "");
 	
 	const inputUsername = document.createElement('input');
 	inputUsername.type = 'text';
@@ -55,16 +131,39 @@ function editUser (){
 	btnI.appendChild(document.createTextNode('save'));
 	saveBtn.appendChild(btnI);
 	column[3].appendChild(saveBtn);
+        
+    }).catch((error) => {
+        console.log(error)
+    })
+	
 }
 //save form data to db
 function saveData(){
 	let editBtn = (event.target.parentNode.parentNode.children)[0];
-	editBtn.setAttribute("onclick", "editUser()");
-	
+	let parentNode = event.target.parentNode;
 	let column = (event.target.parentNode.parentNode.parentNode).children;
 	let username = ((column[0].children)[0]).value;
 	let email = ((column[1].children)[0]).value;
 	let name = ((column[2].children)[0]).value;
+	
+	const url= "/user"
+	const patchedUser = {
+		username: username,
+		email: email,
+		fullName: name
+	}
+	const request = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(patchedUser),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	fetch(request)
+    .then((res) => {
+	
+	editBtn.setAttribute("onclick", "editUser()");
 	
 	column[0].innerHTML = "";
 	column[0].appendChild(document.createTextNode(username));
@@ -75,7 +174,11 @@ function saveData(){
 	column[2].innerHTML = "";
 	column[2].appendChild(document.createTextNode(name));
 	
-	column[3].removeChild(event.target.parentNode);
+	column[3].removeChild(parentNode);
+	
+	}).catch((error) => {
+        console.log(error)
+    })
 }
 
 function editProperty (){
@@ -149,3 +252,4 @@ function saveChanges(){
 	
 	column[4].removeChild(event.target.parentNode);
 }
+
