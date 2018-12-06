@@ -92,8 +92,28 @@ function updateUserInformation(user) {
 }
 
 function displayProperties(properties) {
-  var newTab, newPanel, newTenantTable;
   for (var i = 0; i < properties.length; i++) {
+    addProperty(properties[i], i);
+  }
+}
+
+function addProperty(property, i) {
+  const getUsersRequest = new Request('/usersByUsernames', {
+    method: 'post',
+    body: JSON.stringify(property.tenants),
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+  });
+
+  fetch(getUsersRequest).then((result) => {
+    if (result.status === 200) {
+      return result.json();
+    }
+  }).then(tenants => {
+    var newTab, newPanel, newTenantTable;
+
     newTab = document.createElement("a");
     newTab.classList.add("list-group-item");
     newTab.classList.add("list-group-item-action");
@@ -107,12 +127,12 @@ function displayProperties(properties) {
       newTab.setAttribute("aria-selected", "false");
     }
 
-    newTab.setAttribute("id", properties[i]._id + "Tab");
+    newTab.setAttribute("id", property._id + "Tab");
     newTab.setAttribute("data-toggle", "list");
-    newTab.setAttribute("href", "#" + "list-" + properties[i]._id);
+    newTab.setAttribute("href", "#" + "list-" + property._id);
     newTab.setAttribute("role", "tab");
-    newTab.setAttribute("aria-controls", properties[i]._id);
-    newTab.appendChild(document.createTextNode(properties[i].address));
+    newTab.setAttribute("aria-controls", property._id);
+    newTab.appendChild(document.createTextNode(property.address));
     propertyListTabs.insertBefore(newTab, addPropertyButton);
 
     newPanel = document.createElement("div");
@@ -122,9 +142,9 @@ function displayProperties(properties) {
       newPanel.classList.add("active");
       newPanel.classList.add("show");
     }
-    newPanel.setAttribute("id", "list-" + properties[i]._id);
+    newPanel.setAttribute("id", "list-" + property._id);
     newPanel.setAttribute("role", "tabpanel");
-    newPanel.setAttribute("aria-labelledby", "list-" + properties[i]._id + "-list");
+    newPanel.setAttribute("aria-labelledby", "list-" + property._id + "-list");
 
     newTenantTable = document.createElement("table");
     newTenantTable.classList.add("table");
@@ -145,34 +165,20 @@ function displayProperties(properties) {
 
     var tBody = document.createElement("tBody");
 
-    var getTenantRequest, tenant;
+    for (var j = 0; j < tenants.length; j++) {
+      tR = document.createElement("tr");
+      var tH = document.createElement("th");
+      tH.appendChild(document.createTextNode(j + 1));
+      var tDName = document.createElement("td");
+      tDName.appendChild(document.createTextNode(tenants[j].fullName));
+      var tDUsername = document.createElement("td");
+      tDUsername.appendChild(document.createTextNode(tenants[j].username));
 
-    for (var j = 0; j < properties[i].tenants.length; j++) {
-      getTenantRequest = new Request('/userByUsername/' + properties[i].tenants[j], { method: 'get' });
+      tR.appendChild(tH);
+      tR.appendChild(tDName);
+      tR.appendChild(tDUsername);
 
-      fetch(getTenantRequest).then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-      }).then((tenant) => {
-        console.log(tenant);
-
-        tR = document.createElement("tr");
-        var tH = document.createElement("th");
-        tH.appendChild(document.createTextNode(j + 1));
-        var tDName = document.createElement("td");
-        tDName.appendChild(document.createTextNode(tenant.fullName));
-        var tDUsername = document.createElement("td");
-        tDUsername.appendChild(document.createTextNode(tenant.username));
-
-        tR.appendChild(tH);
-        tR.appendChild(tDName);
-        tR.appendChild(tDUsername);
-
-        tBody.appendChild(tR);
-      }).catch((error) => {
-        console.log(error);
-      });
+      tBody.appendChild(tR);
     }
 
     newTenantTable.appendChild(tBody);
@@ -190,7 +196,7 @@ function displayProperties(properties) {
     newPanel.appendChild(detailDiv);
 
     propertyInfoDiv.appendChild(newPanel);
-  }
+  });
 }
 
 addPropertyButton.addEventListener("click", function (e) {
