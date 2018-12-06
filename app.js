@@ -264,6 +264,11 @@ app.get('/main.html', (req, res) => {
 	res.sendFile(__dirname + '/Views/main.html');
 });
 
+app.get('/main-tenant.html', (req, res) => {
+	console.log('Going to main.. ');
+	res.sendFile(__dirname + '/Views/main-tenant.html');
+});
+
 
 app.listen(port, () => {
 	console.log(`Listening on port ${port}...`);
