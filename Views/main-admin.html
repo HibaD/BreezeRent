@@ -14,7 +14,8 @@
 		  <i class="fas fa-wind"></i> <h4>Administrator Panel</h4>
 		</span>
 		
-   	 	<button type="button" class="btn btn-primary btn-sm" id="logOut">Log out</button>
+   	 	<button type="button" class="btn btn-primary btn-sm" onclick='window.location = "/users/logout"' id="logOut">Log out</button>
+		
 	</nav>
 	<br>
 	<div class="container-fluid">
@@ -30,22 +31,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr>
-				<td>aliceC</td>
-				<td>alice_chen@hotmail.com</td>
-				<td>Alice Chen</td>
-				<td><button onclick="editUser()"><i class="material-icons">edit</i></button>
-				<button onclick="removeUser()"><i class="material-icons">delete</i></button>
-				</td>
-			</tr>
-			<tr>
-				<td>bobG</td>
-				<td>bob_greg@hotmail.com</td>
-				<td>Bob Greg</td>
-				<td><button onclick="editUser()"><i class="material-icons">edit</i></button>
-				<button onclick="removeUser()"><i class="material-icons">delete</i></button>
-				</td>
-			</tr>
+			
 			</tbody>
 		</table>
 		</div>
