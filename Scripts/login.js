@@ -19,7 +19,7 @@ function setup(){
 	// Admin User
 	const url = '/newUser';
 	const admin = {
-		fullname: 'Master',
+		fullName: 'Master',
 		username: 'root',
 		password: 'csc309',
 		role: 'admin'
@@ -36,7 +36,7 @@ function setup(){
 
 	// Landlord
 	const landlord = {
-		fullname: 'Monica Geller',
+		fullName: 'Monica Geller',
 		username: 'monicaG',
 		password: 'test1',
 		role: 'landlord',
@@ -56,7 +56,7 @@ function setup(){
 
 	//Tenant
 	const tenant = {
-		fullname: 'Rachel Green',
+		fullName: 'Rachel Green',
 		username: 'rachelG',
 		password: 'test2',
 		role: 'tenant',
@@ -126,7 +126,7 @@ function addNewUser(e) {
 	// make server calls to add new user
 	const url = '/newUser';
 	const newUser = {
-		fullname: name,
+		fullName: name,
 		username: username,
 		password: pwd,
 		role: role,
