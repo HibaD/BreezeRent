@@ -9,7 +9,7 @@ const { ObjectID } = require('mongodb')
 const { mongoose } = require('./db/mongoose');
 
 // Import models
-const { User } = require('./models/user')
+const { User, Property, Comments, Claim } = require('./models/user')
 
 // Express
 const port = process.env.PORT || 3000;
@@ -78,10 +78,10 @@ app.post('/users/login', (req, res) => {
 /* Requests for user profile */
 
 // GET user profile
-app.get('/user/:username', (req, res) => {
-	const username = req.params.username;
+app.get('/user/:id', (req, res) => {
+	const id = req.params.id;
 
-	User.findOne({ username: username }).then((user) => {
+	User.findById(id).then((user) => {
 		if (!user) {
 			res.status(404).send();
 		} else {
@@ -93,16 +93,84 @@ app.get('/user/:username', (req, res) => {
 });
 
 // POST update user profile
-app.post('/user/:username', (req, res) => {
-	const username = req.params.username;
+app.post('/user/:id', (req, res) => {
+	const id = req.params.id;
 	const userInBody = req.body;
 
-	User.findOneAndUpdate({ username: username }, { $set: userInBody }, { new: true }).then((user) => {
+	User.findByIdAndUpdate(id, { $set: userInBody }, { new: true }).then((user) => {
 		if (!user) {
 			res.status(404).send();
 		} else {
-			res.send({ user });
+			res.send(user);
 		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+/* Requests for properties */
+
+// GET all properties
+app.get('/properties', (req, res) => {
+	Property.find().then((properties) => {
+		if (!properties || properties.length === 0) {
+			res.status(404).send();
+		} else {
+			res.send(properties);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	})
+});
+
+// GET all properties by user id
+app.get('/property/:user_id', (req, res) => {
+	const userId = req.params.user_id;
+
+	Property.find().then((properties) => {
+		if (!properties || properties.length === 0) {
+			res.status(404).send();
+		} else {
+			User.findById(userId).then((user) => {
+				const username = user.username;
+				const userProperties = properties.filter(property => property.tenants.includes(username));
+				res.send(userProperties);
+			});
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+app.post('/property', (req, res) => {
+	const property = new Property(
+		{
+			address: req.body.address,
+			notices: [],
+			capacity: req.body.capacity,
+			tenants: []
+		}
+	);
+
+	property.save().then((result) => {
+		res.send(result);
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+app.post('/addUserToProperty/:username&:property_id', (req, res) => {
+	const username = req.params.username;
+	const propertyId = req.params.property_id;
+
+	Property.findById(propertyId).then(property => {
+		property.tenants.push(username);
+
+		Property.findByIdAndUpdate(propertyId, {$set: property}, {new:true}).then(result => {
+			res.send(result);
+		}).catch((error) => {
+			res.status(400).send(error);
+		});
 	}).catch((error) => {
 		res.status(400).send(error);
 	});
