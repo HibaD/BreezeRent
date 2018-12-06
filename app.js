@@ -158,6 +158,23 @@ app.get('/users/logout', (req, res) => {
 })
 
 /* Requests for user profile */
+app.get('/sessionUser', (req, res) => {
+	const id = req.session.user;
+
+	if (!id) {
+		return res.status(404).send();
+	}
+
+	User.findById(id).then((user) => {
+		if (!user) {
+			res.status(404).send();
+		} else {
+			res.send(user);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
 
 // GET user profile
 app.get('/user/:id', (req, res) => {
