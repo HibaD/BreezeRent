@@ -1,8 +1,52 @@
 const mongoose = require('mongoose');
 const validator = require('validator')
 
-const { Property } = require('./property.js')
-//const { Claim } = require('./claim.js')
+const CommentSchema = new mongoose.Schema({
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+	content: {
+		type: String
+	}
+})
+
+const ClaimSchema = new mongoose.Schema({
+  property: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Property'
+  },
+	title: {
+		type: String,
+		required: true
+	},
+	detail: {
+		type: String,
+		required: true
+	},
+  status: {
+		type: String,
+		required: true
+	},
+  comments: [CommentSchema]
+})
+
+
+const PropertySchema = new mongoose.Schema({
+	address: {
+		type: String,
+		trim: true,
+		required: true
+	},
+	notices: [String],
+  capacity: {
+		type: Number,
+		required: true
+	},
+	// Due to the structure, we need to make this
+	// list of username instead of userSchema
+	tenants: [String]
+})
 
 //creating user Schema
 const userSchema = new mongoose.Schema({
@@ -13,6 +57,7 @@ const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		trim: true,
+		unique: true,
 		required: true
 	},
 	password: {
@@ -35,18 +80,18 @@ const userSchema = new mongoose.Schema({
 			message: 'Not valid email'
 		}
 	},
-	claims: [],
-	property: []
+	claims: [ClaimSchema],
+	property: [PropertySchema]
 	//claims: [Claim.schema],
 	//property: [mongoose.model('Property').schema]
 })
 
-// add validation of users here
-
-//check if user already exists with pre rule
 
 //create the model to use the schema
 const User = mongoose.model ('User', userSchema)
+const Property = mongoose.model('Property', PropertySchema)
+const Comments = mongoose.model('Comments', CommentSchema)
+const Claim = mongoose.model('Claim', ClaimSchema)
 
 //make available to users in Node app
-module.exports = { User };
+module.exports = { User, Property, Comments, Claim };
