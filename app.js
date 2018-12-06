@@ -390,17 +390,14 @@ app.post('/addClaim', (req, res) => {
 		res.status(400).send("Properties missing")
 	}
 	User.findById(id).then((user) => {
-		const {title, detail, status} = req.body;
-		const claim = {title, detail, status}
-		claim.property = user.property;
+		const claim =  new Claim ({
+			title:req.body.title, 
+			detail:req.body.detail, 
+			status:req.body.status});
 		user.claims.push(claim)
 		user.save();
 		// save to landlord as well
-		let landlordName = user.landlord;
-		User.find({fullName: landlordName}).then((landlord) => {
-			const {title, detail, status} = req.body;
-			const claim = {title, detail, status}
-			claim.property = landlord.property;
+		User.findOne({fullName: (user.property)[0].landlord}).then((landlord) => {
 			landlord.claims.push(claim)
 			landlord.save();
 		})
