@@ -206,6 +206,17 @@ app.get('/userByUsername/:username', (req, res) => {
 	});
 });
 
+// POST get users by usernames
+app.post('/usersByUsernames', (req, res) => {
+	const usernames = req.body;
+
+	User.find().then((users) => {
+		res.send(users.filter(user => usernames.includes(user.username)));
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
 // POST update user profile
 app.post('/user/:id', (req, res) => {
 	const id = req.params.id;
@@ -340,15 +351,15 @@ app.post('/notices/:property_id', (req, res) => {
 	const propertyId = req.params.property_id;
 	const new_notice = req.body.notice;
 
-	Property.findByIdAndUpdate(propertyId, {$push: {notices: new_notice}}, { new: true }).then((result) => {
+	Property.findByIdAndUpdate(propertyId, { $push: { notices: new_notice } }, { new: true }).then((result) => {
 		if (!result || result.length === 0) {
 			res.status(404).send();
 		} else {
-			for(var i = 0; i < result.tenants.length; i++) {
-				User.findOneAndUpdate({ username: result.tenants[i] }, { $set: {property: result} }, { new: true }).then((user) => {
+			for (var i = 0; i < result.tenants.length; i++) {
+				User.findOneAndUpdate({ username: result.tenants[i] }, { $set: { property: result } }, { new: true }).then((user) => {
 					res.send({ new_notice, user });
 				});
-			}			
+			}
 		}
 	}).catch((error) => {
 		res.status(400).send(error);
