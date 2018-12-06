@@ -1,3 +1,4 @@
+
 // Display user information
 const getUserRequest = new Request('/sessionUser', { method: 'get' });
 fetch(getUserRequest).then((res) => {
@@ -7,9 +8,23 @@ fetch(getUserRequest).then((res) => {
 }).then((user) => {
   sessionUser = user;
   displayUserInformation(sessionUser);
+
+    // Display notice information
+  const getNoticeRequest = new Request('/notices/' + sessionUser.property[0]._id, {method: 'get'});
+  fetch(getNoticeRequest).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+  }).then((notices) => {
+    console.log(notices)
+    displayNotices(notices);
+  }).catch((error) => {
+    console.log(error);
+  })
 }).catch((error) => {
   console.log(error);
 });
+
 
 const updateProfileButton = document.querySelector("#update-profile-button");
 const saveProfileButton = document.querySelector("#save-profile-button");
@@ -136,13 +151,11 @@ function displayNotices(notices) {
     xSpan.innerHTML = "&times;";
 
     closeButton.appendChild(xSpan);
-    newNotice.appendChild(document.createTextNode(notices[i].message));
+    newNotice.appendChild(document.createTextNode(notices[i]));
     newNotice.appendChild(closeButton);
     noticeList.appendChild(newNotice);
   }
 }
-
-displayNotices(notices);
 
 noticeList.addEventListener("click", function (e) {
   e.preventDefault();

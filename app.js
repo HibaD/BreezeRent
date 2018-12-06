@@ -296,7 +296,7 @@ app.post('/property', (req, res) => {
 });
 
 // POST add user to property, and vice versa
-app.post('/addUserToProperty/:username&:property_id', (req, res) => {
+app.post('/addUserToProperty/:username/:property_id', (req, res) => {
 	const username = req.params.username;
 	const propertyId = req.params.property_id;
 
@@ -316,6 +316,47 @@ app.post('/addUserToProperty/:username&:property_id', (req, res) => {
 		res.status(400).send(error);
 	});
 });
+
+
+/* Requests for notices */
+
+//get all notices
+app.get('/notices/:property_id', (req, res) => {
+	const propertyId = req.params.property_id;
+
+	Property.findById(propertyId).then((property) => {
+		if (!property || property.length === 0) {
+			res.status(404).send();
+		} else {
+			res.send(property.notices);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+//post new notices
+app.post('/notices/:property_id', (req, res) => {
+	const propertyId = req.params.property_id;
+	const new_notice = req.body.notice;
+
+	Property.findByIdAndUpdate(propertyId, {$push: {notices: new_notice}}, { new: true }).then((result) => {
+		if (!result || result.length === 0) {
+			res.status(404).send();
+		} else {
+			for(var i = 0; i < result.tenants.length; i++) {
+				User.findOneAndUpdate({ username: result.tenants[i] }, { $set: {property: result} }, { new: true }).then((user) => {
+					res.send({ new_notice, user });
+				});
+			}			
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	});
+});
+
+
+
 
 /* Temp */
 app.get('/main.html', (req, res) => {
