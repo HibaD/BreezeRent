@@ -1,5 +1,5 @@
 var sessionUser = {
-  _id: '5c08355906b93e5abbf775e0'
+  _id: '5c08b2184985957fd61f13ac'
 };
 
 // Display user information
@@ -15,7 +15,7 @@ fetch(getUserRequest).then((res) => {
   console.log(error);
 });
 
-const getPropertiesRequest = new Request('/properties/' + sessionUser._id, { method: 'get' });
+const getPropertiesRequest = new Request('/propertiesByLandlord/' + sessionUser._id, { method: 'get' });
 fetch(getPropertiesRequest).then((res) => {
   if (res.status === 200) {
     return res.json();
@@ -113,11 +113,11 @@ function displayProperties(properties) {
       newTab.setAttribute("aria-selected", "false");
     }
 
-    newTab.setAttribute("id", properties[i].id + "Tab");
+    newTab.setAttribute("id", properties[i]._id + "Tab");
     newTab.setAttribute("data-toggle", "list");
-    newTab.setAttribute("href", "#" + "list-" + properties[i].id);
+    newTab.setAttribute("href", "#" + "list-" + properties[i]._id);
     newTab.setAttribute("role", "tab");
-    newTab.setAttribute("aria-controls", properties[i].id);
+    newTab.setAttribute("aria-controls", properties[i]._id);
     newTab.appendChild(document.createTextNode(properties[i].address));
     propertyListTabs.insertBefore(newTab, addPropertyButton);
 
@@ -128,9 +128,9 @@ function displayProperties(properties) {
       newPanel.classList.add("active");
       newPanel.classList.add("show");
     }
-    newPanel.setAttribute("id", "list-" + properties[i].id);
+    newPanel.setAttribute("id", "list-" + properties[i]._id);
     newPanel.setAttribute("role", "tabpanel");
-    newPanel.setAttribute("aria-labelledby", "list-" + properties[i].id + "-list");
+    newPanel.setAttribute("aria-labelledby", "list-" + properties[i]._id + "-list");
 
     newTenantTable = document.createElement("table");
     newTenantTable.classList.add("table");
@@ -151,20 +151,34 @@ function displayProperties(properties) {
 
     var tBody = document.createElement("tBody");
 
+    var getTenantRequest, tenant;
+
     for (var j = 0; j < properties[i].tenants.length; j++) {
-      tR = document.createElement("tr");
-      var tH = document.createElement("th");
-      tH.appendChild(document.createTextNode(j + 1));
-      var tDName = document.createElement("td");
-      tDName.appendChild(document.createTextNode(properties[i].tenants[j].name));
-      var tDUsername = document.createElement("td");
-      tDUsername.appendChild(document.createTextNode(properties[i].tenants[j].username));
+      getTenantRequest = new Request('/userByUsername/' + properties[i].tenants[j], { method: 'get' });
 
-      tR.appendChild(tH);
-      tR.appendChild(tDName);
-      tR.appendChild(tDUsername);
+      fetch(getTenantRequest).then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      }).then((tenant) => {
+        console.log(tenant);
 
-      tBody.appendChild(tR);
+        tR = document.createElement("tr");
+        var tH = document.createElement("th");
+        tH.appendChild(document.createTextNode(j + 1));
+        var tDName = document.createElement("td");
+        tDName.appendChild(document.createTextNode(tenant.fullName));
+        var tDUsername = document.createElement("td");
+        tDUsername.appendChild(document.createTextNode(tenant.username));
+
+        tR.appendChild(tH);
+        tR.appendChild(tDName);
+        tR.appendChild(tDUsername);
+
+        tBody.appendChild(tR);
+      }).catch((error) => {
+        console.log(error);
+      });
     }
 
     newTenantTable.appendChild(tBody);

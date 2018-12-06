@@ -1,5 +1,5 @@
 var sessionUser = {
-  _id: '5c08355906b93e5abbf775e0'
+  _id: '5c08b22d4985957fd61f13ad'
 };
 
 // Display user information
