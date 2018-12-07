@@ -1,42 +1,34 @@
-class Claim {
-  constructor(title, description, property) {
-    this.title = title;
-    this.description = description;
-    this.property = property;
-    this.claimStatus = "Active";
-    this.commentList = [];
-  }
-}
-
-const claimList = [];
-const supportList = [];
-
-
-class Comment {
-  constructor(user, comment) {
-    this.user = user;
-    this.comment = comment;
-  }
-}
-var claimTable;
+const claimTable = document.querySelector("#claimInfoTenant");
 //server call to initialize claims page and pull data from db
 function initialize() {
-  const claimEx1 = new Claim('Fix kitchen sink', 'Water fills up in sink and takes a long time to drain', 'Test');
-  const claimEx2 = new Claim('Toilet clogged', 'Water fills up in sink and takes a long time to drain', 'Test');
-  claimList.push(claimEx1);
-  claimList.push(claimEx2);
-  claimEx1.claimStatus = 'In-Progress';
-
-  supportList.push(claimEx2);
-
-  if(document.querySelector("#claimInfoTenant") !== null) {   //on claim page
-    claimTable = document.querySelector("#claimInfoTenant");
-    addToClaimTableTenant(claimEx1);
-    addToClaimTableTenant(claimEx2);
-  }else {                                                       //on support page
-    claimTable = document.querySelector("#supportInfoTenant");
-    addToSupportTableTenant(claimEx2);
-  }
+													
+	const url = '/allClaims';
+	const request = new Request (url, {
+			method: 'get',
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	fetch(request)
+    .then((res) => { 
+        if (res.status === 200) {
+           return res.json() 
+       } else {
+            alert('Could not get users')
+       }                
+    })
+    .then((json) => {
+		for (i=0; i< json.allClaims.length; i++){
+			addToClaimTableTenant(json.allClaims[i]);
+		}
+    }).catch((error) => {
+        console.log(error)
+    })									
+	//on support page
+	//claimTable = document.querySelector("#supportInfoTenant");
+    //addToSupportTableTenant(claimEx2);
+  
 }
 initialize();
 
@@ -44,10 +36,11 @@ const newClaim = document.querySelector("#addNewClaim");
 if(newClaim !== null) {
   newClaim.addEventListener("submit", addClaim);
 }
+
 const newTicket = document.querySelector("#createNewTicket");
 if(newTicket !== null) {
   newTicket.addEventListener("submit", addTicket);
-}
+} 
 
 function addCommentTenant(e) {
   e.preventDefault();
@@ -68,17 +61,38 @@ function addCommentTenant(e) {
 }
 
 function addClaim(e) {
-  e.preventDefault();
+	e.preventDefault();
 
-  const textTitle = (document.querySelector("#title")).value;
-  const textDescription = (document.querySelector("#description")).value;
-  
+	const textTitle = (document.querySelector("#title")).value;
+	const textDescription = (document.querySelector("#description")).value;
 
-  const claim = new Claim(textTitle, textDescription, 'Test')
-  claimList.push(claim);
-
-  addToClaimTableTenant(claim);
-  document.getElementById("addNewClaim").reset();
+	const url = '/addClaim';
+	const newClaim = {
+		title: textTitle,
+		detail: textDescription,
+		status: 'Active',
+	}
+	
+	const request = new Request (url, {
+			method: 'post',
+			body: JSON.stringify(newClaim),
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+	});
+	fetch(request)
+    .then(function(res) {
+        // Handle response we get from the API
+        // Usually check the error codes to see what happened
+        if (res.status === 200) {
+            addToClaimTableTenant(newClaim);
+			document.getElementById("addNewClaim").reset();
+        } 
+    }).catch((error) => {
+        console.log(error)
+    })
+	
 }
 
 function addTicket(e) {
@@ -105,8 +119,6 @@ function addTicket(e) {
 
 }
 
-
-
 function addToClaimTableTenant(claim) {
 
   const claimTitle = document.createElement("td");
@@ -127,7 +139,7 @@ function addToClaimTableTenant(claim) {
   claimTitle.appendChild(aTag);
 
   claimDetails.classList.add("description");
-  claimDetails.appendChild(document.createTextNode(claim.description));
+  claimDetails.appendChild(document.createTextNode(claim.detail));
 
   statusDiv.classList.add("alert");
 
@@ -139,7 +151,7 @@ function addToClaimTableTenant(claim) {
     statusDiv.classList.add("alert-warning");
   }
 
-  statusDiv.appendChild(document.createTextNode(claim.claimStatus));
+  statusDiv.appendChild(document.createTextNode(claim.status));
   claimStatus.appendChild(statusDiv);
 
   newClaim.appendChild(claimTitle);

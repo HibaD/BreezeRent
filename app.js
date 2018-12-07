@@ -5,6 +5,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { ObjectID } = require('mongodb')
 const session = require('express-session')
+var cookieParser = require('cookie-parser');
+//var cookieSession = require('cookie-session')
+
 
 // Import our mongoose connection
 const { mongoose } = require('./db/mongoose');
@@ -25,6 +28,14 @@ app.use(express.static(__dirname));
 app.use('/Styles', express.static(__dirname + '/Styles'));
 app.use('/Scripts', express.static(__dirname + '/Scripts'));
 app.use('/Views', express.static(__dirname + '/Views'));
+
+app.use(cookieParser());
+
+
+// Add route to check for cookies
+app.get('/cookie',function(req, res){
+	res.cookie("set cookie on login page" , '1').send('Cookie is set');
+});
 
 // Add express sesssion middleware
 app.use(session({
@@ -366,7 +377,122 @@ app.post('/notices/:property_id', (req, res) => {
 	});
 });
 
+/************************ Claims *****************/
+// route for login
+/*app.get('/tenant/claims', (req, res) => {
+	//const claims = document.querySelector("#panel-claims");
+	//claims.innerHTML = '<object data="Tenant-claim-main.html" height="100%" width="100%"></object>';
+	res.sendFile(__dirname + '/Views/Tenant-claim-main.html');
+})*/
 
+app.get('/allClaims', (req, res) => {
+	User.findById(req.session.user).then((user)=>{
+	let allClaims = user.claims;
+	res.send({allClaims});
+	}).catch((error) => {
+		res.status(400).send(error)
+	})
+})
+
+app.post('/addClaim', (req, res) => {
+	const id = req.session.user;
+
+	if (req.body.title == null || req.body.detail == null){
+		res.status(400).send("Properties missing")
+	}
+	User.findById(id).then((user) => {
+		const claim =  new Claim ({
+			title:req.body.title, 
+			detail:req.body.detail, 
+			status:req.body.status});
+		user.claims.push(claim)
+		user.save();
+		// save to landlord as well
+		User.findOne({fullName: (user.property)[0].landlord}).then((landlord) => {
+			landlord.claims.push(claim)
+			landlord.save();
+		})
+		
+		res.send(claim)
+	}).catch((error) => {
+		res.status(400).send(error)
+	})	
+})
+
+/*app.post('/findClaim', (req, res) => {
+	const id = req.session.user;
+	User.findById(id).then((user) => {
+		let i = 0;
+		let claims = user.claims;
+		for(i in user.claims){
+			if(claims[i].title == req.body.title){
+				claimId = claims[i]._id;
+				res.send({claimId});
+			}	
+		}
+	})
+})
+*/
+
+app.route('/claimsPage').get((req, res) => {
+	res.sendFile(__dirname+ '/Views/Landlord-Claim-Click.html');
+})
+
+app.post('/claimClicked',(req, res) => {
+	const id = req.session.user;
+	const cid = req.body.id;
+		
+	User.findById(id).then((user) => {
+		res.redirect('/claimsPage');
+	})
+	
+})
+
+
+app.post('/findClaim', (req, res) => {
+	const id = req.session.user;
+	const cid = req.body.id;
+		
+	User.findById(id).then((user) => {
+		let claim = user.claims.id(cid);
+		res.send({claim});
+	})
+})
+
+app.patch('')
+
+/**************Comments******************/
+app.get('/allComments/:id', (req, res) => {
+	const id = req.session.user;
+	const cid = req.params.id;
+	User.findById(id).then((user) => {
+		let claim = user.claims.id(cid);
+		let comments = claim.comments;
+		console.log(claim);
+		console.log(comments);
+		res.send({comments});
+	})
+})
+
+app.post('/createComment/:id', (req,res) => {
+	const id = req.session.user;
+	const cid = req.params.id;
+	const {author, content} = req.body;
+	const comment = {author, content};
+	User.findById(id).then((user) => {
+		let claim = user.claims.id(cid);
+		(user.claims.id(cid)).comments.push(comment);
+		user.save();
+		// save to landlord as well
+		/*let landlordName = user.landlord;
+		User.find({fullName: landlordName}).then((landlord) => {
+			let claim = user.claims.id(cid);
+			claim.push(comment);
+			landlord.save();
+		})*/
+		res.send(comment);
+	})
+})
 
 
 /* Temp */
@@ -380,7 +506,6 @@ app.get('/main-tenant.html', (req, res) => {
 	res.sendFile(__dirname + '/Views/main-tenant.html');
 });
 
-
 app.listen(port, () => {
-	console.log(`Listening on port ${port}...`);
+    console.log(`Listening on port ${port}...`);
 });

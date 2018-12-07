@@ -16,3 +16,14 @@
     });
   }, false);
 })();
+
+const propertyName = document.querySelector("#propertyName");
+const address = document.querySelector("#propertAddress");
+const numberOfTenants = document.querySelector("#numberOfTenants");
+const availability = document.querySelector("#availability");
+const save_button = document.querySelector("#save-button");
+
+
+
+
+
