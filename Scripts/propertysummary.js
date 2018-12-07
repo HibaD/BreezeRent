@@ -45,7 +45,7 @@ function updateTenantsInfo(e) {
     const tenantInput = document.querySelector("#tenants-input")
     const tenantUserName = tenantInput.value
 
-    const url = '/addUserToProperty/'+ tenantUserName + '/:property_id';
+    const url = '/addUserToProperty/'+ tenantUserName + '/' + document.cookie;
     const request = new Request (url, {
         method: 'post',
         headers: {
