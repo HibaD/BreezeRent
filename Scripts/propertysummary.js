@@ -1,5 +1,4 @@
 const property_id = document.cookie.substring(document.cookie.indexOf("=")+1, document.cookie.length);
-console.log(property_id)
 // Display property summary
 const getPropertyRequest = new Request('/property/' + property_id, { method: 'get' });
 fetch(getPropertyRequest).then((res) => {
@@ -66,13 +65,14 @@ function displayNoticeInfo(property) {
       
 }
 
+
 const tenants = []
 
 const tenantAddButton = document.querySelector('#tenants-submit');
 const noticeSubmitButton = document.querySelector('#notice-submit');
 
-//tenantAddButton.addEventListener('click', updateTenantsInfo);
-//noticeSubmitButton.addEventListener('click', updateNoticeInfo);
+tenantAddButton.addEventListener('click', updateTenantsInfo);
+noticeSubmitButton.addEventListener('click', updateNoticeInfo);
 
 var count_notice = 0;
 
@@ -90,6 +90,74 @@ if(mm<10) {
 
 var date_format = mm + '/' + dd;
 
+function updateTenantsInfo(e) {
+    e.preventDefault();
+    count_tenant ++;
+    const userTable = document.querySelector('#user-table');
+
+    //DOM Manipulation
+    const tbodyElement = document.createElement('tr');
+    const thElement = document.createElement('th');
+    thElement.setAttribute("scope", "row");
+    thElement.appendChild(document.createTextNode(count_tenant));
+  
+    const tenantInput = document.querySelector("#tenants-input")
+    const tenantUserName = tenantInput.value
+
+    const url = '/addUserToProperty/'+ tenantUserName + '/' + document.cookie;
+    const request = new Request (url, {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+    });
+    fetch(request)
+      .then((res) => {
+          if (res.status === 200) {
+             return res.json()
+         } else {
+              alert('Could not add user')
+         }
+      })
+      .then((json) => {
+        tbodyElement.appendChild(thElement);
+        const tdfirst = document.createElement('td');
+        tdfirst.appendChild(document.createTextNode(tenantUserName));
+        tbodyElement.appendChild(tdfirst);
+        userTable.appendChild(tbodyElement);
+
+      }).catch((error) => {
+          console.log(error)
+      })
 
 
 
+}
+
+function updateNoticeInfo(e) {
+    e.preventDefault();
+    count_notice++;
+    const noticetext = document.querySelector('#notice-input').value;
+    const noticeTable = document.querySelector('#notice-table');
+
+
+    //DOM Manipulation
+    const tbodyElement = document.createElement('tr');
+    const thElement = document.createElement('th');
+    thElement.setAttribute("scope", "row");
+    thElement.appendChild(document.createTextNode(count_notice));
+    const tdfirst = document.createElement('td')
+    tdfirst.appendChild(document.createTextNode(date_format))
+
+    const tdsecond = document.createElement('td')
+    tdsecond.appendChild(document.createTextNode(noticetext))
+
+
+    tbodyElement.appendChild(thElement);
+    tbodyElement.appendChild(tdfirst)
+    tbodyElement.appendChild(tdsecond)
+
+    noticeTable.appendChild(tbodyElement);
+
+}

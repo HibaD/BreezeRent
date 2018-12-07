@@ -27,6 +27,7 @@ function initialize() {
 		for (i=0; i< json.allClaims.length; i++){
 			addToClaimTableLandlord(json.allClaims[i]);
 		}
+		addEventListener();
     }).catch((error) => {
         console.log(error)
     })
@@ -85,7 +86,6 @@ function addToClaimTableLandlord(claim) {
   newClaim.appendChild(claimDetails);
   newClaim.appendChild(claimStatus);
   claimTable.appendChild(newClaim);
-  addEventListener();
 }
 
 function addEventListener(){
@@ -122,6 +122,38 @@ function addEventListener(){
 		})
 		
 	})
+		
+}
+
+function statusChange(){
+	//e.preventDefault();
+	const url = '/updateClaim/'+ claimClicked._id;
+		const response = event.target.value;
+		console.log(event.target.value);
+		let newStatus = 'Active';
+		if(response=="Accept")
+			newStatus = 'In-Progress';
+		else if(response=="Rejected")
+			newStatus = 'Rejected';
+		console.log(newStatus)
+		const status = {
+			status: newStatus
+		}
+		const request = new Request (url, {
+				method: 'post',
+				body: JSON.stringify(status),
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-Type': 'application/json'
+				}
+		});
+		fetch(request).then((res) => { 
+			if (res.status === 200) {
+				location.reload();	
+			} else {
+				alert('Could not get claim clicked')
+			}
+	    })
 }
 
 function addToSupportTableLandlord(claim) {
@@ -170,12 +202,7 @@ function addToSupportTableLandlord(claim) {
 
 
 /**************Clicked Claim********************/
-
-const newCommentFormLandlord = document.querySelector("#addCommentLandlord");
-newCommentFormLandlord.addEventListener("submit", addCommentLandlord);
-
 function showAllComments(){
-	console.log(claimClicked);
 	const url = '/allComments/'+claimClicked._id;
 	const request = new Request (url, {
 			method: 'get',
@@ -193,9 +220,7 @@ function showAllComments(){
        }                
     })
     .then((json) => {
-		console.log(json.comments[0])
-		for (i=0; i< json.comments.length; i++){
-			
+	for (i=0; i< json.comments.length; i++){
 			addCommentToSection(json.comments[i]);
 		}
     }).catch((error) => {
@@ -203,9 +228,11 @@ function showAllComments(){
     })
 }
 
+const newCommentFormLandlord = document.querySelector("#addCommentLandlord");
+newCommentFormLandlord.addEventListener("submit", addCommentLandlord);
+
 function addCommentLandlord(e) {
     e.preventDefault();
-	console.log(claimClicked._id);
 	
     const url = '/createComment/'+claimClicked._id;
 	const commentText = (document.querySelector("#commentL")).value;
@@ -213,9 +240,10 @@ function addCommentLandlord(e) {
 		return;
 	  }
 	  const newComment= {
-		  author: 'Landlord',
+		  author: 'landlord',
 		 content: commentText
 	  }
+	  
 	const request = new Request (url, {
 			method: 'post',
 			body: JSON.stringify(newComment),
@@ -227,9 +255,7 @@ function addCommentLandlord(e) {
 	fetch(request)
     .then((res) => { 
         if (res.status === 200) {
-           
-		  const comment = new Comment('L', commentText);
-		  addCommentToSection(comment);
+		  addCommentToSection(newComment);
 		  document.getElementById('addCommentLandlord').reset() 
        } else {
             alert('Could not get comments')
@@ -243,7 +269,7 @@ function addCommentLandlord(e) {
 function addCommentToSection(comment) {
   const commentSec = document.querySelector(".commentsL");
 
-  if (comment.user == 'L') {
+  if (comment.author == 'landlord') {
     const newComment = document.createElement("div");
     newComment.classList.add("landlordComment");
     newComment.classList.add("comment");
@@ -252,7 +278,7 @@ function addCommentToSection(comment) {
     icon.classList.add('icon');
     icon.appendChild(document.createTextNode('L'));
     newComment.appendChild(icon);
-    newComment.appendChild(document.createTextNode(comment.commentEntered));
+    newComment.appendChild(document.createTextNode(comment.content));
     commentSec.appendChild(newComment);
   } else {
     const newComment = document.createElement("div");
@@ -264,85 +290,63 @@ function addCommentToSection(comment) {
     icon.appendChild(document.createTextNode('T'));
 
     newComment.appendChild(icon);
-    newComment.appendChild(document.createTextNode(comment.commentEntered));
+    newComment.appendChild(document.createTextNode(comment.content));
     commentSec.appendChild(newComment);
   }
 }
 
 function addToLandlordClick(claim) {
-    const url = '/claimClicked';
+			
+	const claimTitle = document.createElement("td");
+	const claimDetails = document.createElement("td");
+	const claimStatus = document.createElement("td");
+
+	const newClaim = document.createElement("tr");
+
+	claimTitle.appendChild(document.createTextNode(claim.title));
+	claimDetails.appendChild(document.createTextNode(claim.detail));
+
+	claimTitle.classList.add("align-middle");
+	claimDetails.classList.add("align-middle");
+	claimStatus.classList.add("align-middle");
+
+	const claimForm = document.createElement('form');
+	claimForm.id = claim._id;
+	const radioAcpt = document.createElement('input');
+	const radioRjt = document.createElement('input');
+
+	const divAcpt = document.createElement('div');
+	const divRjt = document.createElement('div');
+
+	radioAcpt.type = 'radio';
+	radioRjt.type = 'radio';
+	radioAcpt.value = 'Accept';
+	radioRjt.value = 'Accept';
+	radioAcpt.name = "status";
+	radioRjt.name = "status";
 	
-	const ids = {
-		id: claim.id
+	claimForm.setAttribute('onchange', 'statusChange()');
+	
+	if (claim.status == 'In-Progress') {
+	radioAcpt.setAttribute('checked', 'checked');
+	} else if (claim.status == 'Rejected') {
+	radioRjt.setAttribute('checked', 'checked');
 	}
-	const request = new Request (url, {
-			method: 'post',
-			body: JSON.stringify(ids),
-			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Content-Type': 'application/json'
-			}
-	});
-	fetch(request)
-    .then((res) => { 
-        if (res.status === 200) {
-			window.location.assign('/claimsPage')
+
+	divAcpt.appendChild(radioAcpt);
+	divRjt.appendChild(radioRjt);
+
+	divAcpt.appendChild(document.createTextNode(' Accept'));
+	divRjt.appendChild(document.createTextNode(' Reject'));
+
+	claimForm.appendChild(divAcpt);
+	claimForm.appendChild(divRjt);
+	claimStatus.appendChild(claimForm);
+
+	newClaim.appendChild(claimTitle);
+	newClaim.appendChild(claimDetails);
+	newClaim.appendChild(claimStatus);
 	
-			const claimTitle = document.createElement("td");
-  const claimDetails = document.createElement("td");
-  const claimStatus = document.createElement("td");
-
-  const newClaim = document.createElement("tr");
-
-  claimTitle.appendChild(document.createTextNode(claim.title));
-  claimDetails.appendChild(document.createTextNode(claim.detail));
-
-  claimTitle.classList.add("align-middle");
-  claimDetails.classList.add("align-middle");
-  claimStatus.classList.add("align-middle");
-
-  const claimForm = document.createElement('form');
-  claimForm.id = claimStatus;
-  const radioAcpt = document.createElement('input');
-  const radioRjt = document.createElement('input');
-
-  const divAcpt = document.createElement('div');
-  const divRjt = document.createElement('div');
-
-  radioAcpt.type = 'radio';
-  radioRjt.type = 'radio';
-  radioAcpt.value = 'Accept';
-  radioRjt.value = 'Accept';
-  radioAcpt.name = "status";
-  radioRjt.name = "status";
-
-  if (claim.claimStatus == 'In-Progress') {
-    radioAcpt.setAttribute('checked', 'checked');
-  } else if (claim.status == 'Rejected') {
-    radioRjt.setAttribute('checked', 'checked');
-  }
-
-  divAcpt.appendChild(radioAcpt);
-  divRjt.appendChild(radioRjt);
-
-  divAcpt.appendChild(document.createTextNode(' Accept'));
-  divRjt.appendChild(document.createTextNode(' Reject'));
-
-  claimForm.appendChild(divAcpt);
-  claimForm.appendChild(divRjt);
-  claimStatus.appendChild(claimForm);
-
-  newClaim.appendChild(claimTitle);
-  newClaim.appendChild(claimDetails);
-  newClaim.appendChild(claimStatus);
-  showAllComments();
- 
-  //console.log(clickTable);
-  //clickTable.appendChild(newClaim);	
-		} else {
-            alert('Could not get claim clicked')
-        }
-	}).catch((error) => {
-        console.log(error)
-    })
+	clickTable.appendChild(newClaim);
+	showAllComments();
 }
