@@ -34,7 +34,7 @@ List of features implemented:
 6) Landlord can add new properties, add tenants and notices to property
 
 Overview of routes added:
-
 1) Login page: authenticate and redirect user to main dashboard
 2) Login page: new user form check if user already exists, form data is valid and save or report success/error message back to user
-3) Claim routes
+3) Claim page routes: populate main claim tables on landlord and tenant, post request for adding new claim, redirect request for claim selected, populate claim info on claim page, add comment on claim page post route 
+4) Dashboard for tenant and landlord: added ability to edit basic data, add new property
