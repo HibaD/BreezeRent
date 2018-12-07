@@ -122,6 +122,38 @@ function addEventListener(){
 		})
 		
 	})
+		
+}
+
+function statusChange(){
+	//e.preventDefault();
+	const url = '/updateClaim/'+ claimClicked._id;
+		const response = event.target.value;
+		console.log(event.target.value);
+		let newStatus = 'Active';
+		if(response=="Accept")
+			newStatus = 'In-Progress';
+		else if(response=="Rejected")
+			newStatus = 'Rejected';
+		console.log(newStatus)
+		const status = {
+			status: newStatus
+		}
+		const request = new Request (url, {
+				method: 'post',
+				body: JSON.stringify(status),
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-Type': 'application/json'
+				}
+		});
+		fetch(request).then((res) => { 
+			if (res.status === 200) {
+				location.reload();	
+			} else {
+				alert('Could not get claim clicked')
+			}
+	    })
 }
 
 function addToSupportTableLandlord(claim) {
@@ -223,7 +255,6 @@ function addCommentLandlord(e) {
 	fetch(request)
     .then((res) => { 
         if (res.status === 200) {
-           
 		  addCommentToSection(newComment);
 		  document.getElementById('addCommentLandlord').reset() 
        } else {
@@ -280,7 +311,7 @@ function addToLandlordClick(claim) {
 	claimStatus.classList.add("align-middle");
 
 	const claimForm = document.createElement('form');
-	claimForm.id = claimStatus;
+	claimForm.id = claim._id;
 	const radioAcpt = document.createElement('input');
 	const radioRjt = document.createElement('input');
 
@@ -293,7 +324,9 @@ function addToLandlordClick(claim) {
 	radioRjt.value = 'Accept';
 	radioAcpt.name = "status";
 	radioRjt.name = "status";
-
+	
+	claimForm.setAttribute('onchange', 'statusChange()');
+	
 	if (claim.status == 'In-Progress') {
 	radioAcpt.setAttribute('checked', 'checked');
 	} else if (claim.status == 'Rejected') {
