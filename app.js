@@ -34,7 +34,7 @@ app.use(cookieParser());
 
 // Add route to check for cookies
 app.get('/cookie',function(req, res){
-	res.cookie("set cookie on login page" , '1').send('Cookie is set');
+	res.cookie("set cookie on login" , 'cookie-value').send('Cookie is set');
 });
 
 // Add express sesssion middleware
@@ -253,6 +253,21 @@ app.get('/properties', (req, res) => {
 			res.status(404).send();
 		} else {
 			res.send(properties);
+		}
+	}).catch((error) => {
+		res.status(400).send(error);
+	})
+});
+
+// GET property by id
+app.get('/property/:property_id', (req, res) => {
+	const property_id = req.params.property_id;
+
+	Property.findById(property_id).then((property) => {
+		if (!property || property.length === 0) {
+			res.status(404).send();
+		} else {
+			res.send(property);
 		}
 	}).catch((error) => {
 		res.status(400).send(error);
