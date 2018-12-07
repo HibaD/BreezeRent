@@ -42,11 +42,12 @@ function updateTenantsInfo(e) {
     //
     // const tdthird = document.createElement('td')
     // tdthird.appendChild(document.createTextNode("Melo"))
+    const tenantInput = document.querySelector("#tenants-input")
+    const tenantUserName = tenantInput.value
 
-    const url = '/property';
+    const url = '/addUserToProperty/'+ tenantUserName + '/:property_id';
     const request = new Request (url, {
         method: 'post',
-        body: JSON.stringify(ids),
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
@@ -57,13 +58,13 @@ function updateTenantsInfo(e) {
           if (res.status === 200) {
              return res.json()
          } else {
-              alert('Could not get users')
+              alert('Could not add user')
          }
       })
       .then((json) => {
         tbodyElement.appendChild(thElement);
         const tdfirst = document.createElement('td');
-        tdfirst.appendChild(document.createTextNode(""));
+        tdfirst.appendChild(document.createTextNode(tenantUserName));
         tbodyElement.appendChild(tdfirst);
         userTable.appendChild(tbodyElement);
 
