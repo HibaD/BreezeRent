@@ -87,6 +87,7 @@ function addToClaimTableLandlord(claim) {
   claimTable.appendChild(newClaim);
   addEventListener();
 }
+
 function addEventListener(){
 	let claimTag = document.querySelector(".claimTag");
 

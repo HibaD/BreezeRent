@@ -1,27 +1,4 @@
-const tenants = []
-
-const tenantAddButton = document.querySelector('#tenants-submit');
-const noticeSubmitButton = document.querySelector('#notice-submit');
-
-tenantAddButton.addEventListener('click', updateTenantsInfo);
-noticeSubmitButton.addEventListener('click', updateNoticeInfo);
-
-var count_tenant = 2;
-var count_notice = 1;
-
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; 
-
-if(dd<10) {
-    dd = '0'+dd
-} 
-
-if(mm<10) {
-    mm = '0'+mm
-}
-
-var date_format = mm + '/' + dd;
+console.log("Cookies on property summary: " + document.cookie)
 
 function updateTenantsInfo(e) {
     e.preventDefault();
@@ -50,6 +27,32 @@ function updateTenantsInfo(e) {
     userTable.appendChild(tbodyElement);
     
 }
+
+const tenants = []
+
+const tenantAddButton = document.querySelector('#tenants-submit');
+const noticeSubmitButton = document.querySelector('#notice-submit');
+
+tenantAddButton.addEventListener('click', updateTenantsInfo);
+noticeSubmitButton.addEventListener('click', updateNoticeInfo);
+
+var count_tenant = 2;
+var count_notice = 1;
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; 
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+}
+
+var date_format = mm + '/' + dd;
+
 
 function updateNoticeInfo(e) {
     e.preventDefault();

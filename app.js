@@ -5,6 +5,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { ObjectID } = require('mongodb')
 const session = require('express-session')
+var cookieParser = require('cookie-parser');
+//var cookieSession = require('cookie-session')
+
 
 // Import our mongoose connection
 const { mongoose } = require('./db/mongoose');
@@ -25,6 +28,14 @@ app.use(express.static(__dirname));
 app.use('/Styles', express.static(__dirname + '/Styles'));
 app.use('/Scripts', express.static(__dirname + '/Scripts'));
 app.use('/Views', express.static(__dirname + '/Views'));
+
+app.use(cookieParser());
+
+
+// Add route to check for cookies
+app.get('/cookie',function(req, res){
+	res.cookie("set cookie on login page" , '1').send('Cookie is set');
+});
 
 // Add express sesssion middleware
 app.use(session({
