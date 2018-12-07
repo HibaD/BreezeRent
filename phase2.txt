@@ -19,7 +19,7 @@ Clicking on the claim title navigates to details on the claim. The user can view
 Clicking on the support tab will navigate to the support page where user can create a support ticket from the claim pools. Once the support ticket is added, the landlord will get an update on their support list. 
 
 Landlord User:
-Username: 1
+Username: kevin
 Password: 1
 Logging in as a landlord allows you to view your profile information and edit it. A list of properties you own is also displayed. You can add new properties by clicking the add new property button, which navigate to a form. Also, on the home page is a property details button. On the property page the user can add tenants by username to a property which will change the status to not available if the max tenants have been reached. The landlord can also issue notices to users. All active notices and users are displayed and can be removed by clicking x. 
 
