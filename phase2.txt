@@ -10,7 +10,7 @@ Password: admin
 Logging in as administrator allows you to view all active active users and properties. Clicking on the edit icon allows you to edit the username, email and full name of the user and clicking save will save this data. In the same way clicking on the edit icon on the properties table would allow you to edit the property table, number of tenants, address and availability.
 
 Tenant User:
-Username: 2
+Username: hiba
 Password: 2
 Logging is a tenant allows you to view your profile information and edit it. A list of active notices is also displayed. 
 
