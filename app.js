@@ -419,20 +419,23 @@ app.post('/addClaim', (req, res) => {
 	})	
 })
 
-/*app.post('/findClaim', (req, res) => {
+app.post('/updateClaim/:id', (req, res) => {
 	const id = req.session.user;
+	const cid = req.params.id;
+	const newStatus = req.body.status;
+	console.log(cid);
+	console.log(newStatus);
 	User.findById(id).then((user) => {
-		let i = 0;
-		let claims = user.claims;
-		for(i in user.claims){
-			if(claims[i].title == req.body.title){
-				claimId = claims[i]._id;
-				res.send({claimId});
-			}	
-		}
+		let claim = user.claims.id(cid);
+		claim.status = newStatus;
+		user.save();
+		/*User.findOne({fullName: (user.property)[0].landlord}).then((landlord) => {
+			landlord.claims.push(claim)
+			landlord.save();
+		})*/
+		res.send(claim);
 	})
 })
-*/
 
 app.route('/claimsPage').get((req, res) => {
 	res.sendFile(__dirname+ '/Views/Landlord-Claim-Click.html');
@@ -448,7 +451,6 @@ app.post('/claimClicked',(req, res) => {
 	
 })
 
-
 app.post('/findClaim', (req, res) => {
 	const id = req.session.user;
 	const cid = req.body.id;
@@ -459,7 +461,6 @@ app.post('/findClaim', (req, res) => {
 	})
 })
 
-app.patch('')
 
 /**************Comments******************/
 app.get('/allComments/:id', (req, res) => {
@@ -468,8 +469,6 @@ app.get('/allComments/:id', (req, res) => {
 	User.findById(id).then((user) => {
 		let claim = user.claims.id(cid);
 		let comments = claim.comments;
-		console.log(claim);
-		console.log(comments);
 		res.send({comments});
 	})
 })
@@ -480,16 +479,15 @@ app.post('/createComment/:id', (req,res) => {
 	const {author, content} = req.body;
 	const comment = {author, content};
 	User.findById(id).then((user) => {
-		let claim = user.claims.id(cid);
 		(user.claims.id(cid)).comments.push(comment);
 		user.save();
+		
 		// save to landlord as well
-		/*let landlordName = user.landlord;
-		User.find({fullName: landlordName}).then((landlord) => {
-			let claim = user.claims.id(cid);
-			claim.push(comment);
+		User.findOne({fullName: (user.property)[0].landlord}).then((landlord) => {
+			landlord.claims.id(cid).comments.push(comment);
 			landlord.save();
-		})*/
+		})
+		
 		res.send(comment);
 	})
 })
