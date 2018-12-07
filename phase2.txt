@@ -2,6 +2,8 @@
 
 The index.html file is the gateway to the application. Use the register form to create a new user (only landlord or tenant). Log in using the credentials registered with or using the sample ones supplied below.
 
+It has been deployed and is accessible from: https://breezerent.herokuapp.com
+
 Admin User:
 Username: admin
 Password: admin
