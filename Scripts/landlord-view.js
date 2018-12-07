@@ -7,7 +7,7 @@ fetch(getUserRequest).then((res) => {
 }).then((user) => {
   sessionUser = user;
   displayUserInformation(sessionUser);
-
+  
   const getPropertiesRequest = new Request('/propertiesByLandlord/' + sessionUser._id, { method: 'get' });
   fetch(getPropertiesRequest).then((res) => {
     if (res.status === 200) {
@@ -33,6 +33,12 @@ const profileRatings = document.querySelector("#profile-ratings");
 
 const propertyInfoDiv = document.querySelector("#property-info-div");
 const propertyListTabs = document.querySelector("#property-list-tabs");
+
+const propertyName = document.querySelector("#propertyName");
+const propertyAddress = document.querySelector("#propertAddress");
+const numberOfTenants = document.querySelector("#numberOfTenants");
+const availability = document.querySelector("#availability");
+const savePropertybutton = document.querySelector("#save-button");
 
 var nameInput, contactInput;
 
@@ -191,6 +197,7 @@ function addProperty(property, i) {
     detailButton.classList.add("btn");
     detailButton.classList.add("btn-primary");
     detailButton.setAttribute("id", "property-detail-button");
+    detailButton.setAttribute("data-property-id", property._id);
     detailButton.appendChild(document.createTextNode("Property details"));
     detailDiv.appendChild(detailButton);
     newPanel.appendChild(detailDiv);
@@ -201,8 +208,13 @@ function addProperty(property, i) {
 
 addPropertyButton.addEventListener("click", function (e) {
   e.preventDefault();
-  window.location = "../Views/propertyregistry.html";
+  
 });
+
+
+
+
+
 
 updateProfileButton.addEventListener("click", function (e) {
   e.preventDefault();
@@ -246,6 +258,7 @@ saveProfileButton.addEventListener("click", function (e) {
 propertyInfoDiv.addEventListener("click", function (e) {
   e.preventDefault();
   if (e.target.id === "property-detail-button") {
+    document.cookie = "set cookie on landlord-view page=" + event.target.getAttribute('data-property-id');
     window.location = "../Views/propertysummary.html";
   }
 });
