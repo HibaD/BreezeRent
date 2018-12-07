@@ -16,6 +16,8 @@ The claims page on the left hand navigation shows all active claims you have mad
 
 Clicking on the claim title navigates to details on the claim. The user can view any correspondence with the landlord and view details of when to expect a fix if it has been accepted.
 
+Clicking on the support tab will navigate to the support page where user can create a support ticket from the claim pools. Once the support ticket is added, the landlord will get an update on their support list. 
+
 Landlord User:
 Username: 1
 Password: 1
@@ -38,3 +40,5 @@ Overview of routes added:
 2) Login page: new user form check if user already exists, form data is valid and save or report success/error message back to user
 3) Claim page routes: populate main claim tables on landlord and tenant, post request for adding new claim, redirect request for claim selected, populate claim info on claim page, add comment on claim page post route 
 4) Dashboard for tenant and landlord: added ability to edit basic data, add new property
+5) Tenant page: create notices routes on tenant side, so that once a property has some notices, tenant can read them from the database.
+
