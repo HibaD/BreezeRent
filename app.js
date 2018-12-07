@@ -465,12 +465,12 @@ app.get('/allComments/:id', (req, res) => {
 
 app.post('/createComment/:id', (req,res) => {
 	const id = req.session.user;
-	const claimId = req.params.id;
+	const cid = req.params.id;
 	const {author, content} = req.body;
 	const comment = {author, content};
 	User.findById(id).then((user) => {
 		let claim = user.claims.id(cid);
-		claim.push(comment);
+		(user.claims.id(cid)).comments.push(comment);
 		user.save();
 		// save to landlord as well
 		/*let landlordName = user.landlord;
@@ -482,8 +482,6 @@ app.post('/createComment/:id', (req,res) => {
 		res.send(comment);
 	})
 })
-
-
 
 
 /* Temp */
