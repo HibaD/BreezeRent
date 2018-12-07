@@ -43,4 +43,5 @@ Overview of routes added:
 3) Claim page routes: populate main claim tables on landlord and tenant, post request for adding new claim, redirect request for claim selected, populate claim info on claim page, add comment on claim page post route 
 4) Dashboard for tenant and landlord: added ability to edit basic data, add new property
 5) Tenant page: create notices routes on tenant side, so that once a property has some notices, tenant can read them from the database.
+6) Landlord page: property summary now can read data from the database and display tenants and notices information.
 
