@@ -1,0 +1,85 @@
+<html>
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../Styles/styles.css" />
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-12">
+				<h1>Claims</h1>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-12">
+				<table class="table table-striped" id="claimInfoLandlord">
+					<thead>
+						<th scope="col">Property</th>
+						<th scope="col">Title</th>
+						<th scope="col">Details</th>
+						<th scope="col">Status</th>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-12">
+				<h1>Claim Information</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+
+				<table id="claimClickedLandlord" class="table table-striped">
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Details</th>
+						<th scope="col">Status</th>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<h1>Comments</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-9">
+				<div class="commentsL comments">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-9">
+				<form id="addCommentLandlord" class="newForm">
+					<div class="form-group">
+						<input id="commentL" type="text" class="form-control" placeholder="Comment" maxlength="250">
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<script src="../Scripts/landlord-main.js"></script>
+</body>
+
+</html>
