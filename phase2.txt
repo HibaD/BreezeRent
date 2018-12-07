@@ -3,8 +3,8 @@
 The index.html file is the gateway to the application. Use the register form to create a new user (only landlord or tenant). Log in using the credentials registered with or using the sample ones supplied below.
 
 Admin User:
-Username: root
-Password: csc309
+Username: admin
+Password: admin
 Logging in as administrator allows you to view all active active users and properties. Clicking on the edit icon allows you to edit the username, email and full name of the user and clicking save will save this data. In the same way clicking on the edit icon on the properties table would allow you to edit the property table, number of tenants, address and availability.
 
 Tenant User:
