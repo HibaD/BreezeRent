@@ -199,8 +199,6 @@ function addToSupportTableLandlord(claim) {
   claimTable.appendChild(newClaim);
 }
 
-
-
 /**************Clicked Claim********************/
 function showAllComments(){
 	const url = '/allComments/'+claimClicked._id;
