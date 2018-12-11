@@ -12,7 +12,7 @@ const navSupports = document.querySelector("#nav-support");
 const signOutButton = document.querySelector("#signOut");
 
 profile.innerHTML = '<object data="../Views/tenant-view.html" height="100%" width="100%"></object>';
-claims.innerHTML = '<object data="../Views/tenant-claim-main.html" height="100%" width="100%"></object>';
+claims.innerHTML = '<object data="../Views/Tenant-Claim-Main.html" height="100%" width="100%"></object>';
 
 navProfile.addEventListener("click", function(e) {
   e.preventDefault();
