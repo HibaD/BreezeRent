@@ -3,8 +3,7 @@ const validator = require('validator')
 
 const CommentSchema = new mongoose.Schema({
   author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    type: String
   },
 	content: {
 		type: String
