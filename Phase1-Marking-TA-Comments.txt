@@ -1,9 +1,0 @@
-There is a lack of instructions provided.
-
-The claims pages have very large empty areas and inconsistent element widths.
-
-There are some issues with editing users in the admin page. For example click the edit button continually spawns save icons.
-
-You should organize your code into different folders ideally for css, JS and html. As it is currently it can be difficult to navigate between different files.
-
-Some of the items from your proposal are missing from the site. This includes the proposed features of being able to schedule appointments with the landlord. Your proposal also mentions that admins can chat with other users and can perform more functions than what is implemented.
